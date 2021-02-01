@@ -5,6 +5,10 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "JZR.SurveyMaker.DB", "JZR.SurveyMaker.DB\JZR.SurveyMaker.DB.sqlproj", "{BD081FE7-D547-4FCF-BDC7-3AE2171A479F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JZR.SurveyMaker.PL", "JZR.SurveyMaker.PL\JZR.SurveyMaker.PL.csproj", "{3F5DD46C-6E5D-4415-AD52-40906DD9A2B5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JZR.SurveyMaker.BL.Models", "JZR.SurveyMaker.BL.Models\JZR.SurveyMaker.BL.Models.csproj", "{A6783706-D201-47B9-81BA-DAA41C7CF879}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -17,6 +21,14 @@ Global
 		{BD081FE7-D547-4FCF-BDC7-3AE2171A479F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BD081FE7-D547-4FCF-BDC7-3AE2171A479F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BD081FE7-D547-4FCF-BDC7-3AE2171A479F}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{3F5DD46C-6E5D-4415-AD52-40906DD9A2B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F5DD46C-6E5D-4415-AD52-40906DD9A2B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F5DD46C-6E5D-4415-AD52-40906DD9A2B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F5DD46C-6E5D-4415-AD52-40906DD9A2B5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A6783706-D201-47B9-81BA-DAA41C7CF879}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A6783706-D201-47B9-81BA-DAA41C7CF879}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A6783706-D201-47B9-81BA-DAA41C7CF879}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A6783706-D201-47B9-81BA-DAA41C7CF879}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

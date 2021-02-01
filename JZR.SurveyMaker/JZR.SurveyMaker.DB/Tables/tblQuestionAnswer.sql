@@ -3,5 +3,6 @@
 	[Id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
     [AnswerID] UNIQUEIDENTIFIER FOREIGN KEY REFERENCES [tblAnswer]([Id]) NOT NULL, 
     [QuestionID] UNIQUEIDENTIFIER FOREIGN KEY REFERENCES [tblQuestion]([Id]) NOT NULL, 
-    [IsCorrect] BIT NOT NULL
+    [IsCorrect] BIT NOT NULL,
+    UNIQUE ([AnswerID], [QuestionID])
 )

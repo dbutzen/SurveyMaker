@@ -62,4 +62,21 @@
     <Folder Include="StoredProcedures" />
     <Folder Include="Post-Deployment\DefaultData" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="localdb.publish.xml" />
+    <None Include="Post-Deployment\DefaultData\Questions.sql" />
+    <None Include="Post-Deployment\DefaultData\Answers.sql" />
+    <None Include="Post-Deployment\DefaultData\QuestionAnswers.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PreDeploy Include="Pre-Deployment\Script.PreDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="Post-Deployment\Script.PostDeployment.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Tables\tblQuestion.sql" />
+    <Build Include="Tables\tblAnswer.sql" />
+    <Build Include="Tables\tblQuestionAnswer.sql" />
+  </ItemGroup>
 </Project>

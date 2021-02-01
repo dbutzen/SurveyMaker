@@ -9,3 +9,6 @@ Post-Deployment Script Template
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
+:r .\DefaultData\Questions.sql	
+:r .\DefaultData\Answers.sql	
+:r .\DefaultData\QuestionAnswers.sql	
