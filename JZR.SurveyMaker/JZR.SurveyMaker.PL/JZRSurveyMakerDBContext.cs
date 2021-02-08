@@ -6,20 +6,20 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace JZR.SurveyMaker.PL
 {
-    public partial class SurveyMakerEntities : DbContext
+    public partial class SurveyEntities : DbContext
     {
-        public SurveyMakerEntities()
+        public SurveyEntities()
         {
         }
 
-        public SurveyMakerEntities(DbContextOptions<SurveyMakerEntities> options)
+        public SurveyEntities(DbContextOptions<SurveyEntities> options)
             : base(options)
         {
         }
 
-        public virtual DbSet<TblAnswer> tblAnswers { get; set; }
-        public virtual DbSet<TblQuestion> tblQuestions { get; set; }
-        public virtual DbSet<TblQuestionAnswer> tblQuestionAnswers { get; set; }
+        public virtual DbSet<tblAnswer> tblAnswers { get; set; }
+        public virtual DbSet<tblQuestion> tblQuestions { get; set; }
+        public virtual DbSet<tblQuestionAnswer> tblQuestionAnswers { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -34,14 +34,14 @@ namespace JZR.SurveyMaker.PL
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
 
-            modelBuilder.Entity<TblAnswer>(entity =>
+            modelBuilder.Entity<tblAnswer>(entity =>
             {
                 entity.ToTable("tblAnswer");
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
             });
 
-            modelBuilder.Entity<TblQuestion>(entity =>
+            modelBuilder.Entity<tblQuestion>(entity =>
             {
                 entity.ToTable("tblQuestion");
 
@@ -50,7 +50,7 @@ namespace JZR.SurveyMaker.PL
                 entity.Property(e => e.Question).IsRequired();
             });
 
-            modelBuilder.Entity<TblQuestionAnswer>(entity =>
+            modelBuilder.Entity<tblQuestionAnswer>(entity =>
             {
                 entity.ToTable("tblQuestionAnswer");
 

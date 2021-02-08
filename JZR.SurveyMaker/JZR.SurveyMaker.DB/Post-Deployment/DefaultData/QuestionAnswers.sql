@@ -1,27 +1,82 @@
-﻿INSERT INTO tblQuestionAnswer
-	(ID, QuestionID, AnswerID, IsCorrect)
-VALUES
+﻿BEGIN
+	DECLARE @QuestionId UNIQUEIDENTIFIER;
+	DECLARE @Ans_None UNIQUEIDENTIFIER;
+	DECLARE @Ans_2 UNIQUEIDENTIFIER;
+	DECLARE @Ans_3 UNIQUEIDENTIFIER;
+	DECLARE @Ans_4 UNIQUEIDENTIFIER;
+	DECLARE @Ans_5 UNIQUEIDENTIFIER;
+	DECLARE @Ans_7 UNIQUEIDENTIFIER;
+	DECLARE @Ans_Primate UNIQUEIDENTIFIER;
+	DECLARE @Ans_Lizard UNIQUEIDENTIFIER;
+	DECLARE @Ans_Bird UNIQUEIDENTIFIER;
+	DECLARE @Ans_Yes UNIQUEIDENTIFIER;
+	DECLARE @Ans_No UNIQUEIDENTIFIER;
+
+
+	SELECT @Ans_None = Id from tblAnswer WHERE Answer = 'None';
+	SELECT @Ans_2 = Id from tblAnswer WHERE Answer = '2';
+	SELECT @Ans_3 = Id from tblAnswer WHERE Answer = '3';
+	SELECT @Ans_4 = Id from tblAnswer WHERE Answer = '4';
+	SELECT @Ans_5 = Id from tblAnswer WHERE Answer = '5';
+	SELECT @Ans_7 = Id from tblAnswer WHERE Answer = '7';
+	SELECT @Ans_Primate = Id from tblAnswer WHERE Answer = 'A primate';
+	SELECT @Ans_Lizard = Id from tblAnswer WHERE Answer = 'A lizard';
+	SELECT @Ans_Bird = Id from tblAnswer WHERE Answer = 'A bird';
+	SELECT @Ans_Yes = Id from tblAnswer WHERE Answer = 'Yes';
+	SELECT @Ans_No = Id from tblAnswer WHERE Answer = 'No';
+
+
 	-- How many rings are on the Olympic flag?
-	(NEWID(), 'CFDE6F64-E0BB-438D-9534-32543F757689', '26AAD164-D37B-4B18-B717-5F8F52E1B149', 0),
-	(NEWID(), 'CFDE6F64-E0BB-438D-9534-32543F757689', 'FF8EFFAD-E18D-4673-81BD-7A516DB44E1D', 0),
-	(NEWID(), 'CFDE6F64-E0BB-438D-9534-32543F757689', '758BE412-D8EF-4330-BDF1-7C30A92CF9EC', 1),
-	(NEWID(), 'CFDE6F64-E0BB-438D-9534-32543F757689', 'C625EE57-72D3-4976-81A4-7D2FFB8E9136', 0),
+	SELECT @QuestionId = Id FROM tblQuestion WHERE Question = 'How many rings are on the Olympic flag?'
+
+	INSERT INTO tblQuestionAnswer
+		(ID, QuestionID, AnswerID, IsCorrect)
+	VALUES
+		(NEWID(), @QuestionId, @Ans_None, 0),
+		(NEWID(), @QuestionId, @Ans_4, 0),
+		(NEWID(), @QuestionId, @Ans_5, 1),
+		(NEWID(), @QuestionId, @Ans_7, 0);
 
 	-- What is a tarsier?
-	(NEWID(), 'C67A2617-372E-4415-8C43-3DD6EFEB2768', '12138B08-4035-4971-952E-889139B23258', 0),
-	(NEWID(), 'C67A2617-372E-4415-8C43-3DD6EFEB2768', 'A3156FE0-735A-4E6B-BE87-8BD47B960B2B', 1),
-	(NEWID(), 'C67A2617-372E-4415-8C43-3DD6EFEB2768', 'CAC0DAA5-817E-4F49-B518-97EBAB5914FD', 0),
+	SELECT @QuestionId = Id FROM tblQuestion WHERE Question = 'What is a tarsier?'
+
+	INSERT INTO tblQuestionAnswer
+		(ID, QuestionID, AnswerID, IsCorrect)
+	VALUES
+		(NEWID(), @QuestionId, @Ans_Primate, 1),
+		(NEWID(), @QuestionId, @Ans_Lizard, 0),
+		(NEWID(), @QuestionId, @Ans_Bird, 0);
+
 
 	-- Would a Catholic living in the United States ever celebrate Easter in May?
-	(NEWID(), 'B8593F55-1DDC-40A1-98FA-6E8A56D83A40', '9189BEEC-54D2-4653-8554-C42DED28A9EC', 0),
-	(NEWID(), 'B8593F55-1DDC-40A1-98FA-6E8A56D83A40', '1802353F-2E22-4718-AF4D-CDB27BB18415', 1),
+	SELECT @QuestionId = Id FROM tblQuestion WHERE Question = 'Would a Catholic living in the United States ever celebrate Easter in May?'
+
+	INSERT INTO tblQuestionAnswer
+		(ID, QuestionID, AnswerID, IsCorrect)
+	VALUES
+		(NEWID(), @QuestionId, @Ans_Yes, 0),
+		(NEWID(), @QuestionId, @Ans_No, 1);
 
 	-- How many holes are on a standard bowling ball?
-	(NEWID(), '1165EE66-7625-4094-9EA7-97CDD56D5EA2', '39FC4E10-379A-4B95-93FB-A15DC695CD4A', 0),
-	(NEWID(), '1165EE66-7625-4094-9EA7-97CDD56D5EA2', '9042D7A7-F521-44DC-AE31-B9320AB0A573', 1),
-	(NEWID(), '1165EE66-7625-4094-9EA7-97CDD56D5EA2', '758BE412-D8EF-4330-BDF1-7C30A92CF9EC', 0),
-	(NEWID(), '1165EE66-7625-4094-9EA7-97CDD56D5EA2', 'C625EE57-72D3-4976-81A4-7D2FFB8E9136', 0),
+	SELECT @QuestionId = Id FROM tblQuestion WHERE Question = 'How many holes are on a standard bowling ball?'
+
+	INSERT INTO tblQuestionAnswer
+		(ID, QuestionID, AnswerID, IsCorrect)
+	VALUES
+		(NEWID(), @QuestionId, @Ans_3, 1),
+		(NEWID(), @QuestionId, @Ans_7, 0),
+		(NEWID(), @QuestionId, @Ans_2, 0),
+		(NEWID(), @QuestionId, @Ans_5, 0);
+
+
 
 	-- Are giant pandas a type of bear?
-	(NEWID(), '8C104AB9-BE4B-4C65-B18A-A5FEC59A8A07', '9189BEEC-54D2-4653-8554-C42DED28A9EC', 1),
-	(NEWID(), '8C104AB9-BE4B-4C65-B18A-A5FEC59A8A07', '1802353F-2E22-4718-AF4D-CDB27BB18415', 0)
+	SELECT @QuestionId = Id FROM tblQuestion WHERE Question = 'Are giant pandas a type of bear?'
+
+	INSERT INTO tblQuestionAnswer
+		(ID, QuestionID, AnswerID, IsCorrect)
+	VALUES
+		(NEWID(), @QuestionId, @Ans_Yes, 1),
+		(NEWID(), @QuestionId, @Ans_No, 0)
+
+END

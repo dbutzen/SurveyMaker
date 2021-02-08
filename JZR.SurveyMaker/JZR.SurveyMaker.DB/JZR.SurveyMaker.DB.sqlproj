@@ -61,6 +61,7 @@
     <Folder Include="Tables" />
     <Folder Include="StoredProcedures" />
     <Folder Include="Post-Deployment\DefaultData" />
+    <Folder Include="ForeignKeys" />
   </ItemGroup>
   <ItemGroup>
     <None Include="localdb.publish.xml" />
@@ -78,5 +79,7 @@
     <Build Include="Tables\tblQuestion.sql" />
     <Build Include="Tables\tblAnswer.sql" />
     <Build Include="Tables\tblQuestionAnswer.sql" />
+    <Build Include="ForeignKeys\tblQuestionAnswer_AnswerId.sql" />
+    <Build Include="ForeignKeys\tblQuestionAnswer_QuestionId.sql" />
   </ItemGroup>
 </Project>

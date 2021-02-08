@@ -5,14 +5,14 @@ using System.Collections.Generic;
 
 namespace JZR.SurveyMaker.PL
 {
-    public partial class TblQuestionAnswer
+    public partial class tblQuestionAnswer
     {
         public Guid Id { get; set; }
         public Guid AnswerId { get; set; }
         public Guid QuestionId { get; set; }
         public bool IsCorrect { get; set; }
 
-        public virtual TblAnswer Answer { get; set; }
-        public virtual TblQuestion Question { get; set; }
+        public virtual tblAnswer Answer { get; set; }
+        public virtual tblQuestion Question { get; set; }
     }
 }

@@ -5,16 +5,16 @@ using System.Collections.Generic;
 
 namespace JZR.SurveyMaker.PL
 {
-    public partial class TblAnswer
+    public partial class tblAnswer
     {
-        public TblAnswer()
+        public tblAnswer()
         {
-            TblQuestionAnswers = new HashSet<TblQuestionAnswer>();
+            TblQuestionAnswers = new HashSet<tblQuestionAnswer>();
         }
 
         public Guid Id { get; set; }
         public string Answer { get; set; }
 
-        public virtual ICollection<TblQuestionAnswer> TblQuestionAnswers { get; set; }
+        public virtual ICollection<tblQuestionAnswer> TblQuestionAnswers { get; set; }
     }
 }

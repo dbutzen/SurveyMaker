@@ -5,9 +5,11 @@ VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "JZR.SurveyMaker.DB", "JZR.SurveyMaker.DB\JZR.SurveyMaker.DB.sqlproj", "{BD081FE7-D547-4FCF-BDC7-3AE2171A479F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JZR.SurveyMaker.PL", "JZR.SurveyMaker.PL\JZR.SurveyMaker.PL.csproj", "{3F5DD46C-6E5D-4415-AD52-40906DD9A2B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JZR.SurveyMaker.PL", "JZR.SurveyMaker.PL\JZR.SurveyMaker.PL.csproj", "{3F5DD46C-6E5D-4415-AD52-40906DD9A2B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JZR.SurveyMaker.BL.Models", "JZR.SurveyMaker.BL.Models\JZR.SurveyMaker.BL.Models.csproj", "{A6783706-D201-47B9-81BA-DAA41C7CF879}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JZR.SurveyMaker.BL.Models", "JZR.SurveyMaker.BL.Models\JZR.SurveyMaker.BL.Models.csproj", "{A6783706-D201-47B9-81BA-DAA41C7CF879}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JZR.SurveyMaker.PL.Test", "JZR.SurveyMaker.PL.Test\JZR.SurveyMaker.PL.Test.csproj", "{F28F9628-DCE7-4572-965F-19E902E819B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -29,6 +31,10 @@ Global
 		{A6783706-D201-47B9-81BA-DAA41C7CF879}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A6783706-D201-47B9-81BA-DAA41C7CF879}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A6783706-D201-47B9-81BA-DAA41C7CF879}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F28F9628-DCE7-4572-965F-19E902E819B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F28F9628-DCE7-4572-965F-19E902E819B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F28F9628-DCE7-4572-965F-19E902E819B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F28F9628-DCE7-4572-965F-19E902E819B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
