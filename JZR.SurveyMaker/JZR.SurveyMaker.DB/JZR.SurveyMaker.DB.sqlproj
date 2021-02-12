@@ -81,5 +81,6 @@
     <Build Include="Tables\tblQuestionAnswer.sql" />
     <Build Include="ForeignKeys\tblQuestionAnswer_AnswerId.sql" />
     <Build Include="ForeignKeys\tblQuestionAnswer_QuestionId.sql" />
+    <Build Include="StoredProcedures\spGenerateExam.sql" />
   </ItemGroup>
 </Project>
