@@ -55,7 +55,7 @@ namespace JZR.VehicleTracker.PL.Test
         {
             InsertTest();
 
-            tblQuestion existingrow = dc.tblQuestions.FirstOrDefault(c => c.Question.Contains("tarsier"));
+            tblQuestion existingrow = dc.tblQuestions.FirstOrDefault(q => q.Question.Contains("tarsier"));
             Guid id = existingrow.Id;
             if (existingrow != null)
             {
@@ -63,7 +63,7 @@ namespace JZR.VehicleTracker.PL.Test
                 dc.SaveChanges();
             }
 
-            tblQuestion row = dc.tblQuestions.FirstOrDefault(c => c.Id == id);
+            tblQuestion row = dc.tblQuestions.FirstOrDefault(q => q.Id == id);
 
             Assert.AreEqual(existingrow.Question, row.Question);
 
@@ -75,14 +75,14 @@ namespace JZR.VehicleTracker.PL.Test
 
             InsertTest();
 
-            tblQuestion row = dc.tblQuestions.FirstOrDefault(c => c.Question == "NewQuestion");
+            tblQuestion row = dc.tblQuestions.FirstOrDefault(q => q.Question == "NewQuestion");
             if (row != null)
             {
                 dc.tblQuestions.Remove(row);
                 dc.SaveChanges();
             }
 
-            tblQuestion deletedrow = dc.tblQuestions.FirstOrDefault(c => c.Question == "NewQuestion");
+            tblQuestion deletedrow = dc.tblQuestions.FirstOrDefault(q => q.Question == "NewQuestion");
 
             Assert.IsNull(deletedrow);
         }

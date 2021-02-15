@@ -9,7 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JZR.SurveyMaker.PL", "JZR.S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JZR.SurveyMaker.BL.Models", "JZR.SurveyMaker.BL.Models\JZR.SurveyMaker.BL.Models.csproj", "{A6783706-D201-47B9-81BA-DAA41C7CF879}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JZR.SurveyMaker.PL.Test", "JZR.SurveyMaker.PL.Test\JZR.SurveyMaker.PL.Test.csproj", "{F28F9628-DCE7-4572-965F-19E902E819B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JZR.SurveyMaker.PL.Test", "JZR.SurveyMaker.PL.Test\JZR.SurveyMaker.PL.Test.csproj", "{F28F9628-DCE7-4572-965F-19E902E819B8}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JZR.SurveyMaker.BL", "JZR.SurveyMaker.BL\JZR.SurveyMaker.BL.csproj", "{77E8EA69-AF12-4795-A528-6578AA13C314}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JZR.SurveyMaker.BL.Test", "JZR.SurveyMaker.BL.Test\JZR.SurveyMaker.BL.Test.csproj", "{92A45B83-FA6E-463D-8CCD-D78E86FB5B1A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +39,14 @@ Global
 		{F28F9628-DCE7-4572-965F-19E902E819B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F28F9628-DCE7-4572-965F-19E902E819B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F28F9628-DCE7-4572-965F-19E902E819B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{77E8EA69-AF12-4795-A528-6578AA13C314}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{77E8EA69-AF12-4795-A528-6578AA13C314}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{77E8EA69-AF12-4795-A528-6578AA13C314}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{77E8EA69-AF12-4795-A528-6578AA13C314}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92A45B83-FA6E-463D-8CCD-D78E86FB5B1A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92A45B83-FA6E-463D-8CCD-D78E86FB5B1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92A45B83-FA6E-463D-8CCD-D78E86FB5B1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92A45B83-FA6E-463D-8CCD-D78E86FB5B1A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

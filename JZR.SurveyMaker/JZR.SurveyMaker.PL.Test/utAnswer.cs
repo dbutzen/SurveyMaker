@@ -55,7 +55,7 @@ namespace JZR.VehicleTracker.PL.Test
         {
             InsertTest();
 
-            tblAnswer existingrow = dc.tblAnswers.FirstOrDefault(c => c.Answer == "Yes");
+            tblAnswer existingrow = dc.tblAnswers.FirstOrDefault(a => a.Answer == "Yes");
             Guid id = existingrow.Id;
             if (existingrow != null)
             {
@@ -63,7 +63,7 @@ namespace JZR.VehicleTracker.PL.Test
                 dc.SaveChanges();
             }
 
-            tblAnswer row = dc.tblAnswers.FirstOrDefault(c => c.Id == id);
+            tblAnswer row = dc.tblAnswers.FirstOrDefault(a => a.Id == id);
 
             Assert.AreEqual(existingrow.Answer, row.Answer);
 
@@ -75,7 +75,7 @@ namespace JZR.VehicleTracker.PL.Test
 
             InsertTest();
 
-            tblAnswer row = dc.tblAnswers.FirstOrDefault(c => c.Answer == "NewAnswer");
+            tblAnswer row = dc.tblAnswers.FirstOrDefault(a => a.Answer == "NewAnswer");
             if (row != null)
             {
                 dc.tblAnswers.Remove(row);
