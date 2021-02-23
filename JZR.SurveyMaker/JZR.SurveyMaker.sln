@@ -11,9 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JZR.SurveyMaker.BL.Models",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JZR.SurveyMaker.PL.Test", "JZR.SurveyMaker.PL.Test\JZR.SurveyMaker.PL.Test.csproj", "{F28F9628-DCE7-4572-965F-19E902E819B8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JZR.SurveyMaker.BL", "JZR.SurveyMaker.BL\JZR.SurveyMaker.BL.csproj", "{77E8EA69-AF12-4795-A528-6578AA13C314}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JZR.SurveyMaker.BL", "JZR.SurveyMaker.BL\JZR.SurveyMaker.BL.csproj", "{77E8EA69-AF12-4795-A528-6578AA13C314}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JZR.SurveyMaker.BL.Test", "JZR.SurveyMaker.BL.Test\JZR.SurveyMaker.BL.Test.csproj", "{92A45B83-FA6E-463D-8CCD-D78E86FB5B1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JZR.SurveyMaker.BL.Test", "JZR.SurveyMaker.BL.Test\JZR.SurveyMaker.BL.Test.csproj", "{92A45B83-FA6E-463D-8CCD-D78E86FB5B1A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JZR.SurveyMaker.UI", "JZR.SurveyMaker.UI\JZR.SurveyMaker.UI.csproj", "{7777E2A1-2E82-4698-AAE9-165924BC5E6F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{92A45B83-FA6E-463D-8CCD-D78E86FB5B1A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92A45B83-FA6E-463D-8CCD-D78E86FB5B1A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92A45B83-FA6E-463D-8CCD-D78E86FB5B1A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7777E2A1-2E82-4698-AAE9-165924BC5E6F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7777E2A1-2E82-4698-AAE9-165924BC5E6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7777E2A1-2E82-4698-AAE9-165924BC5E6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7777E2A1-2E82-4698-AAE9-165924BC5E6F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

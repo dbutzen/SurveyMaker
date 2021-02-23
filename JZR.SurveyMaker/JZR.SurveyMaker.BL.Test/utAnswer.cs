@@ -35,28 +35,22 @@ namespace JZR.SurveyMaker.BL.Test
         [TestMethod]
         public void UpdateTest()
         {
-            Task.Run(async () =>
-            {
-                var task = await AnswerManager.Load();
-                IEnumerable<Answer> answers = task;
-                Answer answer = answers.FirstOrDefault(a => a.Text == "Yes");
-                answer.Text = "Updated Answer";
-                int results = await AnswerManager.Update(answer, true);
-                Assert.IsTrue(results > 0);
-            });
+            var task = AnswerManager.Load();
+            IEnumerable<Answer> answers = task.Result;
+            Answer answer = answers.FirstOrDefault(a => a.Text == "Yes");
+            answer.Text = "Updated Answer";
+            var results = AnswerManager.Update(answer, true);
+            Assert.IsTrue(results.Result > 0);
         }
 
         [TestMethod]
         public void DeleteTest()
         {
-            Task.Run(async () =>
-            {
-                var task = await AnswerManager.Load();
-                IEnumerable<Answer> answers = task;
-                Answer answer = answers.FirstOrDefault(a => a.Text == "Yes");
-                int results = await AnswerManager.Delete(answer.Id, true);
-                Assert.IsTrue(results > 0);
-            });
+            var task = AnswerManager.Load();
+            IEnumerable<Answer> answers = task.Result;
+            Answer answer = answers.FirstOrDefault(a => a.Text == "Yes");
+            var results = AnswerManager.Delete(answer.Id, true);
+            Assert.IsTrue(results.Result > 0);
         }
     }
 }

@@ -163,6 +163,7 @@ namespace JZR.SurveyMaker.BL
                 using (SurveyEntities dc = new SurveyEntities())
                 {
                     dc.tblAnswers
+                        .OrderBy(a => a.Answer)
                         .ToList()
                         .ForEach(a => answers.Add(new Answer
                         {
@@ -188,7 +189,12 @@ namespace JZR.SurveyMaker.BL
                 using (SurveyEntities dc = new SurveyEntities())
                 {
                     var questionAnswers = dc.tblQuestionAnswers.ToList().Where(qa => qa.QuestionId == questionId);
-                    questionAnswers.ToList().ForEach(async qa => answers.Add(await LoadById(qa.AnswerId)));
+                    questionAnswers.ToList().ForEach(qa => answers.Add(new Answer
+                    {
+                        Id = qa.AnswerId,
+                        Text = qa.Answer.Answer,
+                        IsCorrect = qa.IsCorrect
+                    }));
                     return answers;
                 }
             }

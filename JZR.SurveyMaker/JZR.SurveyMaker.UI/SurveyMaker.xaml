@@ -1,0 +1,182 @@
+﻿<Window x:Class="JZR.SurveyMaker.UI.SurveyMaker"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:JZR.SurveyMaker.UI"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        Loaded="Window_Loaded"
+        Title="Survey Maker" Height="600" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <!--Header-->
+        <Grid Grid.Row="0" Background="#3d3d3d">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="10"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+            </Grid.ColumnDefinitions>
+            <Grid  Grid.Row="1" Grid.Column="1" >
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="QuestionAnswer"
+                                             Foreground="White"
+                                             Width="25"
+                                             Height="25"
+                                             Margin="0 0 10 0"
+                                             VerticalAlignment="Center"/>
+                    <TextBlock Text="Survey Maker"
+                       VerticalAlignment="Center"
+                       Foreground="White"
+                       FontSize="20"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+        <!--Message Bar-->
+        <Grid x:Name="grdMessageBar" Visibility="Collapsed" Grid.Row="1" Background="LightCoral">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="50"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" x:Name="txtMessage"
+                       Text="Hello"
+                       FontSize="12"
+                       Margin="2"
+                       Foreground="White"
+                       VerticalAlignment="Center"
+                       HorizontalAlignment="Center"/>
+            <Button x:Name="btnCloseMessageBar" Grid.Column="1"
+                    ToolTip="Close"
+                    Margin="2"
+                    Background="Transparent"
+                    BorderBrush="{x:Null}"
+                    Click="btnCloseMessageBar_Click">
+                <materialDesign:PackIcon Kind="Close" Foreground="White"/>
+            </Button>
+        </Grid>
+        <!--Body-->
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="10"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="10" />
+            </Grid.ColumnDefinitions>
+            
+            <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="100"/>
+                </Grid.ColumnDefinitions>
+                <!--DataGrid-->
+                <DataGrid x:Name="grdQuestions"
+                          Grid.Column="0"
+                          AutoGenerateColumns="False"
+                          IsReadOnly="True">
+                    <DataGrid.Columns>
+
+                        <DataGridTextColumn Header="Question"
+                                            Binding="{Binding Text}"
+                                            MinWidth="200"/>
+                        <DataGridTemplateColumn
+                            Header="Actions"
+                            Width="auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Button x:Name="btnEdit" ToolTip="Edit" Width="50" Margin="2" Click="btnEdit_Click">
+                                            <StackPanel>
+                                                <materialDesign:PackIcon Kind="Edit"/>
+                                            </StackPanel>
+                                        </Button>
+                                        <Button x:Name="btnDelete" ToolTip="Delete" Width="50" Margin="2" Click="btnDelete_Click">
+                                            <StackPanel>
+                                                <materialDesign:PackIcon Kind="Remove" Foreground="Red"/>
+                                            </StackPanel>
+                                        </Button>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <!--Question and Answer Managers-->
+                <Grid Grid.Column="1" Margin="10 0 0 0">
+                    <StackPanel>
+                        <Button x:Name="btnMainQuestions" Height="35" Click="btnMainQuestions_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="QuestionMark"
+                                                         Margin="0 0 10 0"
+                                                         VerticalAlignment="Center"
+                                                         Width="15"
+                                                         Height="15"/>
+                                <TextBlock Text="Questions"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <Button x:Name="btnMaintainAnswers" Height="35"
+                                Margin="0 10 0 0" Click="btnMaintainAnswers_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon Kind="ChatBubble"
+                                                         Margin="0 0 10 0"
+                                                         VerticalAlignment="Center"
+                                                         Width="15"
+                                                         Height="15"/>
+                                <TextBlock Text="Answers"
+                                           VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+            <!--Action Buttons-->
+            <Grid Grid.Row="3" Grid.Column="1">
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="btnLoad"
+                            Height="35"
+                            Width="100" Click="btnLoad_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="Reload"
+                                                         Margin="0 0 10 0"
+                                                         VerticalAlignment="Center"
+                                                         Width="15"
+                                                         Height="15"/>
+                            <TextBlock Text="Load"
+                                           VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="btnNew" Height="35"
+                            Width="100"
+                            ToolTip="Create New Question and Answer"
+                            Margin="10 0 0 0" Click="btnNew_Click">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon Kind="OpenInNew"
+                                                         Margin="0 0 10 0"
+                                                         VerticalAlignment="Center"
+                                                         Width="15"
+                                                         Height="15"/>
+                            <TextBlock Text="New"
+                                           VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

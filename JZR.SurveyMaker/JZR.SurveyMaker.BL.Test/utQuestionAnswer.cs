@@ -21,8 +21,8 @@ namespace JZR.SurveyMaker.BL.Test
                 question.Text = "Is this a new question?";
                 var answer = await AnswerManager.LoadByText("Yes");
                 answer.IsCorrect = true;
-                question.Answers.Add(answer);
-                question.Answers.Add(await AnswerManager.LoadByText("No"));
+                question.Answers.Add(answer); // Correct answer
+                question.Answers.Add(await AnswerManager.LoadByText("No")); // Incorrect answer
                 int results = await QuestionAnswerManager.Insert(question, true);
                 Assert.IsTrue(results > 0);
             });
@@ -31,14 +31,13 @@ namespace JZR.SurveyMaker.BL.Test
         [TestMethod]
         public void DeleteTest()
         {
-            Task.Run(async () =>
-            {
-                var task = await QuestionManager.Load();
-                IEnumerable<Question> questions = task;
-                Question question = questions.FirstOrDefault(q => q.Text.Contains("tarsier"));
-                int results = await QuestionAnswerManager.Delete(question.Id, question.Answers[0].Id, true);
-                Assert.IsTrue(results > 0);
-            });
+
+            var task = QuestionManager.Load();
+            IEnumerable<Question> questions = task.Result;
+            task.Wait();
+            Question question = questions.FirstOrDefault(q => q.Text.Contains("tarsier"));
+            var results = QuestionAnswerManager.Delete(question.Id, question.Answers[0].Id, true);
+            Assert.IsTrue(results.Result > 0);
         }
     }
 }

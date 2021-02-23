@@ -163,6 +163,7 @@ namespace JZR.SurveyMaker.BL
                 using (SurveyEntities dc = new SurveyEntities())
                 {
                     dc.tblQuestions
+                        .OrderBy(q => q.Question)
                         .ToList()
                         .ForEach(async q => questions.Add(new Question
                         {

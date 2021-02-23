@@ -35,28 +35,22 @@ namespace JZR.SurveyMaker.BL.Test
         [TestMethod]
         public void UpdateTest()
         {
-            Task.Run(async () =>
-            {
-                var task = await QuestionManager.Load();
-                IEnumerable<Question> questions = task;
-                Question question = questions.FirstOrDefault(q => q.Text.Contains("tarsier"));
-                question.Text = "Updated Question";
-                int results = await QuestionManager.Update(question, true);
-                Assert.IsTrue(results > 0);
-            });
+            var task = QuestionManager.Load();
+            IEnumerable<Question> questions = task.Result;
+            Question question = questions.FirstOrDefault(q => q.Text.Contains("tarsier"));
+            question.Text = "Updated Question";
+            var results = QuestionManager.Update(question, true);
+            Assert.IsTrue(results.Result > 0);
         }
 
         [TestMethod]
         public void DeleteTest()
         {
-            Task.Run(async () =>
-            {
-                var task = await QuestionManager.Load();
-                IEnumerable<Question> questions = task;
-                Question question = questions.FirstOrDefault(q => q.Text.Contains("tarsier"));
-                int results = await QuestionManager.Delete(question.Id, true);
-                Assert.IsTrue(results > 0);
-            });
+            var task = QuestionManager.Load();
+            IEnumerable<Question> questions = task.Result;
+            Question question = questions.FirstOrDefault(q => q.Text.Contains("tarsier"));
+            var results = QuestionManager.Delete(question.Id, true);
+            Assert.IsTrue(results.Result > 0);
         }
     }
 }
