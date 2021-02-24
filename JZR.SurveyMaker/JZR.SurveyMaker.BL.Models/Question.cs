@@ -11,5 +11,13 @@ namespace JZR.SurveyMaker.BL.Models
         public Guid Id { get; set; }
         public string Text { get; set; }
         public List<Answer> Answers { get; set; } = new List<Answer>();
+
+        public Answer CorrectAnswer
+        {
+            get
+            {
+                return Answers.FirstOrDefault(a => a.IsCorrect);
+            }
+        }
     }
 }

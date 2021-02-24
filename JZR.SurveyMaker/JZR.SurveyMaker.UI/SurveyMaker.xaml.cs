@@ -28,19 +28,26 @@ namespace JZR.SurveyMaker.UI
         public SurveyMaker()
         {
             InitializeComponent();
+            InitialLoad();
         }
 
-        private void btnLoad_Click(object sender, RoutedEventArgs e)
-        {
-            ReloadAsync();
 
+        private async void InitialLoad()
+        {
+            await ReloadAsync();
         }
 
-        private async void ReloadAsync()
+        private async void btnLoad_Click(object sender, RoutedEventArgs e)
         {
-            questions = (List<Question>)await QuestionManager.Load();
+            await ReloadAsync();
+            ShowMessage($"Loaded {questions.Count} question(s)", System.Drawing.Color.CornflowerBlue);
+        }
+
+        private async Task ReloadAsync()
+        {
+            CloseMessageBar();
+            questions = await QuestionManager.Load();
             Rebind();
-            //ShowMessage("Loaded", System.Drawing.Color.CornflowerBlue);
         }
 
         private void Rebind()
@@ -67,48 +74,58 @@ namespace JZR.SurveyMaker.UI
             CloseMessageBar();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            ReloadAsync();
-        }
 
-        private void btnEdit_Click(object sender, RoutedEventArgs e)
-        {
 
+        private async void btnEdit_Click(object sender, RoutedEventArgs e)
+        {
+            CloseMessageBar();
+            var selectedQuestion = (Question)(((Button)sender).DataContext);
+            var screen = new MaintainQuestionAnswer(selectedQuestion);
+            screen.Owner = this;
+            screen.ShowDialog();
+            await ReloadAsync();
         }
 
         private async void btnDelete_Click(object sender, RoutedEventArgs e)
         {
-             var result = MessageBox.Show("Are you sure you want to delete?", "Delete Question", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            CloseMessageBar();
+            var result = MessageBox.Show("Are you sure you want to delete?", "Delete Question", MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
                 var selectedQuestion = (Question)(((Button)sender).DataContext);
                 await QuestionManager.Delete(selectedQuestion.Id);
-                ReloadAsync();
+                await ReloadAsync();
+                ShowMessage($"Question Deleted", System.Drawing.Color.Orange);
             }
             
 
         }
 
-        private void btnMainQuestions_Click(object sender, RoutedEventArgs e)
+        private async void btnMainQuestions_Click(object sender, RoutedEventArgs e)
         {
-            var screen = new MaintainAttributes(ScreenMode.Question);
+            CloseMessageBar();
+            var screen = new Manager(ScreenMode.Question);
             screen.Owner = this;
             screen.ShowDialog();
+            await ReloadAsync();
         }
 
-        private void btnMaintainAnswers_Click(object sender, RoutedEventArgs e)
+        private async void btnMaintainAnswers_Click(object sender, RoutedEventArgs e)
         {
-            var screen = new MaintainAttributes(ScreenMode.Answer);
+            CloseMessageBar();
+            var screen = new Manager(ScreenMode.Answer);
             screen.Owner = this;
             screen.ShowDialog();
+            await ReloadAsync();
         }
 
-        private void btnNew_Click(object sender, RoutedEventArgs e)
+        private async void btnManage_Click(object sender, RoutedEventArgs e)
         {
+            CloseMessageBar();
             var screen = new MaintainQuestionAnswer();
             screen.Owner = this;
-            screen.Show();
+            screen.ShowDialog();
+            await ReloadAsync();
         }
     }
 }

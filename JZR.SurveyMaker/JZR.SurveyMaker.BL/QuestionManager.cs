@@ -15,31 +15,36 @@ namespace JZR.SurveyMaker.BL
         {
             try
             {
+                int results = 0;
+
+                await Task.Run(() =>
+                {
                 IDbContextTransaction transaction = null;
 
-                using (SurveyEntities dc = new SurveyEntities())
-                {
-                    if (rollback) transaction = dc.Database.BeginTransaction();
+                    using (SurveyEntities dc = new SurveyEntities())
+                    {
+                        if (rollback) transaction = dc.Database.BeginTransaction();
 
-                    tblQuestion newrow = new tblQuestion();
+                        tblQuestion newrow = new tblQuestion();
 
-                    newrow.Id = Guid.NewGuid();
-                    newrow.Question = question.Text;
+                        newrow.Id = Guid.NewGuid();
+                        newrow.Question = question.Text;
 
-                    question.Id = newrow.Id;
+                        question.Id = newrow.Id;
 
-                    dc.tblQuestions.Add(newrow);
+                        dc.tblQuestions.Add(newrow);
 
-                    int results = dc.SaveChanges();
+                        results = dc.SaveChanges();
 
-                    if (rollback) transaction.Rollback();
+                        if (rollback) transaction.Rollback();
+                    }
+                });
 
-                    return results;
-                }
+                return results;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -51,9 +56,9 @@ namespace JZR.SurveyMaker.BL
                 await Insert(question);
                 return question.Id;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -61,33 +66,34 @@ namespace JZR.SurveyMaker.BL
         {
             try
             {
-                IDbContextTransaction transaction = null;
-                using (SurveyEntities dc = new SurveyEntities())
+                int results = 0;
+                await Task.Run(() =>
                 {
-                    tblQuestion row = dc.tblQuestions.FirstOrDefault(q => q.Id == id);
-                    int results = 0;
-
-                    if (row != null)
+                    IDbContextTransaction transaction = null;
+                    using (SurveyEntities dc = new SurveyEntities())
                     {
-                        if (rollback) transaction = dc.Database.BeginTransaction();
+                        tblQuestion row = dc.tblQuestions.FirstOrDefault(q => q.Id == id);
 
-                        dc.tblQuestions.Remove(row);
+                        if (row != null)
+                        {
+                            if (rollback) transaction = dc.Database.BeginTransaction();
 
-                        results = dc.SaveChanges();
-                        if (rollback) transaction.Rollback();
+                            dc.tblQuestions.Remove(row);
 
-                        return results;
+                            results = dc.SaveChanges();
+                            if (rollback) transaction.Rollback();
+                        }
+                        else
+                        {
+                            throw new Exception("Row was not found");
+                        }
                     }
-                    else
-                    {
-                        throw new Exception("Row was not found");
-                    }
-                }
+                });
+                return results;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-
-                throw ex;
+                throw;
             }
         }
 
@@ -95,34 +101,36 @@ namespace JZR.SurveyMaker.BL
         {
             try
             {
-                IDbContextTransaction transaction = null;
-                using (SurveyEntities dc = new SurveyEntities())
+                int results = 0;
+                await Task.Run(() =>
                 {
-                    tblQuestion row = dc.tblQuestions.FirstOrDefault(q => q.Id == question.Id);
-                    int results = 0;
-                    if (row != null)
+                    IDbContextTransaction transaction = null;
+                    using (SurveyEntities dc = new SurveyEntities())
                     {
-                        if (rollback) transaction = dc.Database.BeginTransaction();
+                        tblQuestion row = dc.tblQuestions.FirstOrDefault(q => q.Id == question.Id);
 
-                        row.Question = question.Text;
+                        if (row != null)
+                        {
+                            if (rollback) transaction = dc.Database.BeginTransaction();
 
-                        results = dc.SaveChanges();
+                            row.Question = question.Text;
 
-                        if (rollback) transaction.Rollback();
+                            results = dc.SaveChanges();
 
-                        return results;
-
+                            if (rollback) transaction.Rollback();
+                        }
+                        else
+                        {
+                            throw new Exception("Row was not found");
+                        }
                     }
-                    else
-                    {
-                        throw new Exception("Row was not found");
-                    }
-                }
+                });
+                return results;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
 
-                throw ex;
+                throw;
             }
         }
 
@@ -130,54 +138,66 @@ namespace JZR.SurveyMaker.BL
         {
             try
             {
-                using (SurveyEntities dc = new SurveyEntities())
+                Question question = new Question();
+                await Task.Run(() =>
                 {
-                    tblQuestion tblQuestion = dc.tblQuestions.FirstOrDefault(q => q.Id == id);
-                    Question question = new Question();
-
-                    if (tblQuestion != null)
+                    using (SurveyEntities dc = new SurveyEntities())
                     {
-                        question.Id = tblQuestion.Id;
-                        question.Text = tblQuestion.Question;
+                        tblQuestion tblQuestion = dc.tblQuestions.FirstOrDefault(q => q.Id == id);
+                        
 
-                        return question;
+                        if (tblQuestion != null)
+                        {
+                            question.Id = tblQuestion.Id;
+                            question.Text = tblQuestion.Question;
+
+                            
+                        }
+                        else
+                        {
+                            throw new Exception("Could not find the row.");
+                        }
                     }
-                    else
-                    {
-                        throw new Exception("Could not find the row.");
-                    }
-                }
+                });
+                return question;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
 
-        public async static Task<IEnumerable<Question>> Load()
+        public async static Task<List<Question>> Load()
         {
             try
             {
                 List<Question> questions = new List<Question>();
-
-                using (SurveyEntities dc = new SurveyEntities())
+                await Task.Run(() =>
                 {
-                    dc.tblQuestions
-                        .OrderBy(q => q.Question)
-                        .ToList()
-                        .ForEach(async q => questions.Add(new Question
+                    using (SurveyEntities dc = new SurveyEntities())
+                    {
+                        dc.tblQuestions.OrderBy(q => q.Question)
+                        .ToList().ForEach(q =>
                         {
-                            Id = q.Id,
-                            Text = q.Question,
-                            Answers = (List<Answer>)await AnswerManager.Load(q.Id)
-                        }));
+                            var question = new Question { Id = q.Id, Text = q.Question };
+                            question.Answers = new List<Answer>();
+                            q.TblQuestionAnswers.ToList().ForEach(qa => question.Answers.Add(new Answer
+                            {
+                                Id = qa.AnswerId,
+                                IsCorrect = qa.IsCorrect,
+                                Text = qa.Answer.Answer
+                            }));
 
-                    return questions;
-                }
+                            questions.Add(question);
+
+                        });
+                    }
+                });
+                return questions;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
 
@@ -185,25 +205,30 @@ namespace JZR.SurveyMaker.BL
         {
             try
             {
-                using (SurveyEntities dc = new SurveyEntities())
+                Question question = new Question();
+                await Task.Run(() =>
                 {
-                    tblQuestion tblQuestion = dc.tblQuestions.FirstOrDefault(q => q.Question == questionText);
-                    Question question = new Question();
-                    if (tblQuestion != null)
+                    using (SurveyEntities dc = new SurveyEntities())
                     {
-                        question.Id = tblQuestion.Id;
-                        question.Text = tblQuestion.Question;
-                        return question;
+                        tblQuestion tblQuestion = dc.tblQuestions.FirstOrDefault(q => q.Question == questionText);
+
+                        if (tblQuestion != null)
+                        {
+                            question.Id = tblQuestion.Id;
+                            question.Text = tblQuestion.Question;
+
+                        }
+                        else
+                        {
+                            throw new Exception("Could not find the row.");
+                        }
                     }
-                    else
-                    {
-                        throw new Exception("Could not find the row.");
-                    }
-                }
+                });
+                return question;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw;
             }
         }
     }

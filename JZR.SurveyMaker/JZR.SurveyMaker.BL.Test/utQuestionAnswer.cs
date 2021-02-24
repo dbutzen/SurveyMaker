@@ -14,29 +14,30 @@ namespace JZR.SurveyMaker.BL.Test
         [TestMethod]
         public void InsertTest()
         {
-            Task.Run(async () =>
-            {
-                var question = new Question();
-                question.Id = Guid.NewGuid();
-                question.Text = "Is this a new question?";
-                var answer = await AnswerManager.LoadByText("Yes");
-                answer.IsCorrect = true;
-                question.Answers.Add(answer); // Correct answer
-                question.Answers.Add(await AnswerManager.LoadByText("No")); // Incorrect answer
-                int results = await QuestionAnswerManager.Insert(question, true);
-                Assert.IsTrue(results > 0);
-            });
+            var qtask = QuestionManager.LoadByText("How many holes are on a standard bowling ball?");
+            qtask.Wait();
+            var question = qtask.Result;
+
+            var atask = AnswerManager.LoadByText("No");
+            atask.Wait();
+            var answer = atask.Result;
+            answer.IsCorrect = true;
+            question.Answers.Add(answer);
+            var results = QuestionAnswerManager.Insert(question, true);
+            results.Wait();
+            Assert.IsTrue(results.Result > 0);
         }
 
         [TestMethod]
         public void DeleteTest()
         {
-
             var task = QuestionManager.Load();
-            IEnumerable<Question> questions = task.Result;
             task.Wait();
-            Question question = questions.FirstOrDefault(q => q.Text.Contains("tarsier"));
+            var questions = task.Result;
+            
+            var question = questions.FirstOrDefault(q => q.Text.Contains("tarsier"));
             var results = QuestionAnswerManager.Delete(question.Id, question.Answers[0].Id, true);
+            results.Wait();
             Assert.IsTrue(results.Result > 0);
         }
     }

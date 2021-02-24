@@ -14,42 +14,42 @@ namespace JZR.SurveyMaker.BL.Test
         [TestMethod]
         public void LoadTest()
         {
-            Task.Run(async () =>
-            {
-                var task = await QuestionManager.Load();
-                IEnumerable<Question> questions = task;
-                Assert.AreEqual(5, questions.ToList().Count);
-            });
+            var task = QuestionManager.Load();
+            task.Wait();
+            var results = task.Result;
+            Assert.AreEqual(5, results.Count);
         }
 
         [TestMethod]
-        public void InsertTest()
+        public  void InsertTest()
         {
-            Task.Run(async () =>
-            {
-                int results = await QuestionManager.Insert(new Question { Text = "NewQuestion" }, true);
-                Assert.IsTrue(results > 0);
-            });
+            var task = QuestionManager.Insert(new Question { Text = "NewQuestion" }, true);
+            task.Wait();
+            Assert.IsTrue(task.Result > 0);
         }
 
         [TestMethod]
         public void UpdateTest()
         {
             var task = QuestionManager.Load();
-            IEnumerable<Question> questions = task.Result;
+            task.Wait();
+            var questions = task.Result;
             Question question = questions.FirstOrDefault(q => q.Text.Contains("tarsier"));
             question.Text = "Updated Question";
             var results = QuestionManager.Update(question, true);
+            results.Wait();
             Assert.IsTrue(results.Result > 0);
         }
 
         [TestMethod]
-        public void DeleteTest()
+        public  void DeleteTest()
         {
             var task = QuestionManager.Load();
-            IEnumerable<Question> questions = task.Result;
+            task.Wait();
+            var questions = task.Result;
             Question question = questions.FirstOrDefault(q => q.Text.Contains("tarsier"));
             var results = QuestionManager.Delete(question.Id, true);
+            results.Wait();
             Assert.IsTrue(results.Result > 0);
         }
     }

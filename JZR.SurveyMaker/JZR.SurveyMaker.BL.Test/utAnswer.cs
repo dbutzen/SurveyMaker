@@ -14,32 +14,30 @@ namespace JZR.SurveyMaker.BL.Test
         [TestMethod]
         public void LoadTest()
         {
-            Task.Run(async () =>
-            {
-                var task = await AnswerManager.Load();
-                IEnumerable<Answer> answers = task;
-                Assert.AreEqual(11, answers.ToList().Count);
-            });
+            var task = AnswerManager.Load();
+            task.Wait();
+            var answers = task.Result;
+            Assert.AreEqual(11, answers.ToList().Count);
         }
 
         [TestMethod]
         public void InsertTest()
         {
-            Task.Run(async () =>
-            {
-                int results = await AnswerManager.Insert(new Answer { Text = "NewAnswer" }, true);
-                Assert.IsTrue(results > 0);
-            });
+            var task =  AnswerManager.Insert(new Answer { Text = "NewAnswer" }, true);
+            task.Wait();
+            Assert.IsTrue(task.Result > 0);
         }
 
         [TestMethod]
         public void UpdateTest()
         {
             var task = AnswerManager.Load();
-            IEnumerable<Answer> answers = task.Result;
+            task.Wait();
+            var answers = task.Result;
             Answer answer = answers.FirstOrDefault(a => a.Text == "Yes");
             answer.Text = "Updated Answer";
             var results = AnswerManager.Update(answer, true);
+            results.Wait();
             Assert.IsTrue(results.Result > 0);
         }
 
@@ -47,9 +45,11 @@ namespace JZR.SurveyMaker.BL.Test
         public void DeleteTest()
         {
             var task = AnswerManager.Load();
-            IEnumerable<Answer> answers = task.Result;
+            task.Wait();
+            var answers = task.Result;
             Answer answer = answers.FirstOrDefault(a => a.Text == "Yes");
             var results = AnswerManager.Delete(answer.Id, true);
+            results.Wait();
             Assert.IsTrue(results.Result > 0);
         }
     }
