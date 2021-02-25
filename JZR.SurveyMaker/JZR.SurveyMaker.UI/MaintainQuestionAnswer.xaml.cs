@@ -165,7 +165,7 @@ namespace JZR.SurveyMaker.UI
                         //    cboQuestions.SelectedValue = selectedQuestionId;
                         //}
                         if (results > 0)
-                            ShowMessage("Saved!", System.Drawing.Color.SeaGreen);
+                            ShowMessage("Saved!", Brushes.Green);
                         else
                             throw new Exception("Duplicate answers are not allowed");
                     }
@@ -182,15 +182,15 @@ namespace JZR.SurveyMaker.UI
             catch (Exception ex)
             {
 
-                ShowMessage(ex.Message, System.Drawing.Color.LightCoral);
+                ShowMessage(ex.Message, Brushes.LightCoral);
             }
 
         }
 
-        private void ShowMessage(string message, System.Drawing.Color backColor)
+        private void ShowMessage(string message, Brush backColor)
         {
             txtMessage.Text = message;
-            grdMessageBar.Background = new SolidColorBrush(Color.FromArgb(backColor.A, backColor.R, backColor.G, backColor.B));
+            grdMessageBar.Background = backColor;
             grdMessageBar.Visibility = Visibility.Visible;
         }
 

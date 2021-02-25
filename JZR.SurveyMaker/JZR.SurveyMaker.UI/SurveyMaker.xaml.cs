@@ -40,7 +40,7 @@ namespace JZR.SurveyMaker.UI
         private async void btnLoad_Click(object sender, RoutedEventArgs e)
         {
             await ReloadAsync();
-            ShowMessage($"Loaded {questions.Count} question(s)", System.Drawing.Color.CornflowerBlue);
+            ShowMessage($"Loaded {questions.Count} question(s)", Brushes.CornflowerBlue);
         }
 
         private async Task ReloadAsync()
@@ -57,10 +57,10 @@ namespace JZR.SurveyMaker.UI
             
         }
 
-        private void ShowMessage(string message, System.Drawing.Color backColor)
+        private void ShowMessage(string message, Brush backColor)
         {
             txtMessage.Text = message;
-            grdMessageBar.Background = new SolidColorBrush(Color.FromArgb(backColor.A, backColor.R, backColor.G, backColor.B));
+            grdMessageBar.Background = backColor;
             grdMessageBar.Visibility = Visibility.Visible;
         }
 
@@ -95,7 +95,7 @@ namespace JZR.SurveyMaker.UI
                 var selectedQuestion = (Question)(((Button)sender).DataContext);
                 await QuestionManager.Delete(selectedQuestion.Id);
                 await ReloadAsync();
-                ShowMessage($"Question Deleted", System.Drawing.Color.Orange);
+                ShowMessage($"Question Deleted", Brushes.Orange);
             }
             
 

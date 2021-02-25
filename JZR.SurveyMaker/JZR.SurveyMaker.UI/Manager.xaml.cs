@@ -99,7 +99,7 @@ namespace JZR.SurveyMaker.UI
                         await QuestionManager.Insert(question);
                         await ReloadAsync();
                         cboAttributes.SelectedValue = question.Id;
-                        ShowMessage("Question Added", System.Drawing.Color.SeaGreen);
+                        ShowMessage("Question Added", Brushes.SeaGreen);
                     }
                     else
                     {
@@ -108,7 +108,7 @@ namespace JZR.SurveyMaker.UI
                         await ReloadAsync();
                         await Task.Delay(100);
                         cboAttributes.SelectedValue = answer.Id;
-                        ShowMessage("Answer Added", System.Drawing.Color.SeaGreen);
+                        ShowMessage("Answer Added", Brushes.SeaGreen);
 
                     }
                 }
@@ -116,7 +116,7 @@ namespace JZR.SurveyMaker.UI
             catch (Exception ex)
             {
 
-                ShowMessage(ex.Message, System.Drawing.Color.LightCoral);
+                ShowMessage(ex.Message, Brushes.LightCoral);
             }
         }
 
@@ -135,7 +135,7 @@ namespace JZR.SurveyMaker.UI
                         await QuestionManager.Update(question);
                         await ReloadAsync();
                         cboAttributes.SelectedValue = question.Id;
-                        ShowMessage("Question Updated", System.Drawing.Color.SeaGreen);
+                        ShowMessage("Question Updated", Brushes.CornflowerBlue);
                     }
                     else
                     {
@@ -144,7 +144,7 @@ namespace JZR.SurveyMaker.UI
                         await AnswerManager.Update(answer);
                         await ReloadAsync();
                         cboAttributes.SelectedValue = answer.Id;
-                        ShowMessage("Answer Updated", System.Drawing.Color.SeaGreen);
+                        ShowMessage("Answer Updated", Brushes.CornflowerBlue);
                     }
 
                 }
@@ -152,7 +152,7 @@ namespace JZR.SurveyMaker.UI
             catch (Exception ex)
             {
 
-                ShowMessage(ex.Message, System.Drawing.Color.LightCoral);
+                ShowMessage(ex.Message, Brushes.LightCoral);
             }
         }
 
@@ -171,7 +171,7 @@ namespace JZR.SurveyMaker.UI
                             var question = (Question)cboAttributes.SelectedItem;
                             await QuestionManager.Delete(question.Id);
                             await ReloadAsync();
-                            ShowMessage("Question Deleted", System.Drawing.Color.Orange);
+                            ShowMessage("Question Deleted", Brushes.Orange);
 
                         }
                         else
@@ -179,7 +179,7 @@ namespace JZR.SurveyMaker.UI
                             var answer = (Answer)cboAttributes.SelectedItem;
                             await AnswerManager.Delete(answer.Id);
                             await ReloadAsync();
-                            ShowMessage("Answer Deleted", System.Drawing.Color.Orange);
+                            ShowMessage("Answer Deleted", Brushes.Orange);
                         }
                     }
                 }
@@ -187,15 +187,15 @@ namespace JZR.SurveyMaker.UI
             catch (Exception ex)
             {
 
-                ShowMessage(ex.Message, System.Drawing.Color.LightCoral);
+                ShowMessage(ex.Message, Brushes.LightCoral);
             }
         }
 
 
-        private void ShowMessage(string message, System.Drawing.Color backColor)
+        private void ShowMessage(string message, Brush backColor)
         {
             txtMessage.Text = message;
-            grdMessageBar.Background = new SolidColorBrush(Color.FromArgb(backColor.A, backColor.R, backColor.G, backColor.B));
+            grdMessageBar.Background = backColor;
             grdMessageBar.Visibility = Visibility.Visible;
         }
 
