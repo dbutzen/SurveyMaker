@@ -27,7 +27,6 @@ namespace JZR.SurveyMaker.UI
         {
             this.screenMode = screenMode;
             InitializeComponent();
-
             InitialLoad();
             var adj = this.screenMode == ScreenMode.Answer ? "an" : "a";
             txtModeName.Text = $"Enter {adj} {this.screenMode}";

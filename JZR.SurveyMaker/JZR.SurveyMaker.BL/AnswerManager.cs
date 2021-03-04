@@ -53,7 +53,7 @@ namespace JZR.SurveyMaker.BL
             try
             {
                 Answer answer = new Answer { Text = answerText};
-                await Insert(answer);
+                await Insert(answer, rollback);
                 return answer.Id;
             }
             catch (Exception)
