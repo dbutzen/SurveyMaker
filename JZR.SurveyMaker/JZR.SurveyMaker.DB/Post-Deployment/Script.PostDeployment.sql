@@ -12,5 +12,3 @@ Post-Deployment Script Template
 :r .\DefaultData\Questions.sql	
 :r .\DefaultData\Answers.sql	
 :r .\DefaultData\QuestionAnswers.sql	
---:r .\DefaultData\Activation.sql
---:r .\DefaultData\Response.sql
