@@ -32,8 +32,6 @@ namespace JZR.SurveyMaker.UI
             InitializeComponent();
             selectedQuestion = question;
             InitialLoad();
-
-
         }
 
         private async void InitialLoad()
@@ -42,7 +40,6 @@ namespace JZR.SurveyMaker.UI
             await ReloadAsync();
             if (question != null && cboQuestions.Items.Count > 0)
                 cboQuestions.SelectedValue = question.Id;
-
             
         }
 
