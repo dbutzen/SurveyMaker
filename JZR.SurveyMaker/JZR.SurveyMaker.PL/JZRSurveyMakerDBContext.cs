@@ -17,9 +17,11 @@ namespace JZR.SurveyMaker.PL
         {
         }
 
+        public virtual DbSet<tblActivation> tblActivations { get; set; }
         public virtual DbSet<tblAnswer> tblAnswers { get; set; }
         public virtual DbSet<tblQuestion> tblQuestions { get; set; }
         public virtual DbSet<tblQuestionAnswer> tblQuestionAnswers { get; set; }
+        public virtual DbSet<tblResponse> tblResponses { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -34,6 +36,27 @@ namespace JZR.SurveyMaker.PL
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.HasAnnotation("Relational:Collation", "SQL_Latin1_General_CP1_CI_AS");
+
+            modelBuilder.Entity<tblActivation>(entity =>
+            {
+                entity.ToTable("tblActivation");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.ActivationCode)
+                    .IsRequired()
+                    .HasMaxLength(6)
+                    .IsUnicode(false);
+
+                entity.Property(e => e.EndDate).HasColumnType("datetime");
+
+                entity.Property(e => e.StartDate).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Question)
+                    .WithMany(p => p.TblActivations)
+                    .HasForeignKey(d => d.QuestionId)
+                    .HasConstraintName("tblActivation_QuestionId");
+            });
 
             modelBuilder.Entity<tblAnswer>(entity =>
             {
@@ -55,7 +78,7 @@ namespace JZR.SurveyMaker.PL
             {
                 entity.ToTable("tblQuestionAnswer");
 
-                entity.HasIndex(e => new { e.AnswerId, e.QuestionId }, "UQ__tblQuest__045E56DD319463CA")
+                entity.HasIndex(e => new { e.AnswerId, e.QuestionId }, "UQ__tblQuest__045E56DD53B43721")
                     .IsUnique();
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
@@ -67,14 +90,33 @@ namespace JZR.SurveyMaker.PL
                 entity.HasOne(d => d.Answer)
                     .WithMany(p => p.TblQuestionAnswers)
                     .HasForeignKey(d => d.AnswerId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__tblQuesti__Answe__286302EC");
+                    .HasConstraintName("tblQuestionAnswer_AnswerId");
 
                 entity.HasOne(d => d.Question)
                     .WithMany(p => p.TblQuestionAnswers)
                     .HasForeignKey(d => d.QuestionId)
+                    .HasConstraintName("tblQuestionAnswer_QuestionId");
+            });
+
+            modelBuilder.Entity<tblResponse>(entity =>
+            {
+                entity.ToTable("tblResponse");
+
+                entity.Property(e => e.Id).ValueGeneratedNever();
+
+                entity.Property(e => e.ResponseDate).HasColumnType("datetime");
+
+                entity.HasOne(d => d.Answer)
+                    .WithMany(p => p.TblResponses)
+                    .HasForeignKey(d => d.AnswerId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__tblQuesti__Quest__29572725");
+                    .HasConstraintName("tblResponse_AnswerId");
+
+                entity.HasOne(d => d.Question)
+                    .WithMany(p => p.TblResponses)
+                    .HasForeignKey(d => d.QuestionId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("tblResponse_QuestionId");
             });
 
             OnModelCreatingPartial(modelBuilder);
