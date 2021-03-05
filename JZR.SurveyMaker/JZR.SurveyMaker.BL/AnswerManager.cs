@@ -36,8 +36,6 @@ namespace JZR.SurveyMaker.BL
                         results = dc.SaveChanges();
 
                         if (rollback) transaction.Rollback();
-
-                        
                     }
                 });
                 return results;

@@ -70,8 +70,6 @@ namespace JZR.SurveyMaker.BL
                     {
                         tblQuestionAnswer row = dc.tblQuestionAnswers.FirstOrDefault(qa => qa.Id == id);
 
-
-
                         if (row != null)
                         {
                             if (rollback) transaction = dc.Database.BeginTransaction();

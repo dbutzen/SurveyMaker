@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JZR.SurveyMaker.BL", "JZR.S
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JZR.SurveyMaker.BL.Test", "JZR.SurveyMaker.BL.Test\JZR.SurveyMaker.BL.Test.csproj", "{92A45B83-FA6E-463D-8CCD-D78E86FB5B1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JZR.SurveyMaker.UI", "JZR.SurveyMaker.UI\JZR.SurveyMaker.UI.csproj", "{7777E2A1-2E82-4698-AAE9-165924BC5E6F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JZR.SurveyMaker.UI", "JZR.SurveyMaker.UI\JZR.SurveyMaker.UI.csproj", "{7777E2A1-2E82-4698-AAE9-165924BC5E6F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TeamC.SurveyMaker.Activator", "TeamC.SurveyMaker.Activator\TeamC.SurveyMaker.Activator.csproj", "{B17727A5-1A96-4DAE-B6FC-64D17B2B9671}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,6 +55,10 @@ Global
 		{7777E2A1-2E82-4698-AAE9-165924BC5E6F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7777E2A1-2E82-4698-AAE9-165924BC5E6F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7777E2A1-2E82-4698-AAE9-165924BC5E6F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B17727A5-1A96-4DAE-B6FC-64D17B2B9671}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B17727A5-1A96-4DAE-B6FC-64D17B2B9671}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B17727A5-1A96-4DAE-B6FC-64D17B2B9671}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B17727A5-1A96-4DAE-B6FC-64D17B2B9671}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
