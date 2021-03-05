@@ -68,6 +68,8 @@
     <None Include="Post-Deployment\DefaultData\Questions.sql" />
     <None Include="Post-Deployment\DefaultData\Answers.sql" />
     <None Include="Post-Deployment\DefaultData\QuestionAnswers.sql" />
+    <None Include="Post-Deployment\DefaultData\Activation.sql" />
+    <None Include="Post-Deployment\DefaultData\Response.sql" />
   </ItemGroup>
   <ItemGroup>
     <PreDeploy Include="Pre-Deployment\Script.PreDeployment.sql" />
@@ -82,5 +84,7 @@
     <Build Include="ForeignKeys\tblQuestionAnswer_AnswerId.sql" />
     <Build Include="ForeignKeys\tblQuestionAnswer_QuestionId.sql" />
     <Build Include="StoredProcedures\spGenerateExam.sql" />
+    <Build Include="Tables\tblActivation.sql" />
+    <Build Include="Tables\tblResponse.sql" />
   </ItemGroup>
 </Project>

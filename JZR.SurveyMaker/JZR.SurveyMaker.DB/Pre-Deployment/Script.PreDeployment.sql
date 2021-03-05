@@ -9,3 +9,9 @@
                SELECT * FROM [$(TableName)]					
 --------------------------------------------------------------------------------------
 */
+
+DROP TABLE IF EXISTS tblQuestionAnswer
+DROP TABLE IF EXISTS tblActivation
+DROP TABLE IF EXISTS tblResponse
+DROP TABLE IF EXISTS tblQuestion
+DROP TABLE IF EXISTS tblAnswer
