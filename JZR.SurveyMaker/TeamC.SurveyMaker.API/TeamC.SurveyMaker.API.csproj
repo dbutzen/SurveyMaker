@@ -4,5 +4,13 @@
     <TargetFramework>net5.0</TargetFramework>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.6.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\JZR.SurveyMaker.BL.Models\JZR.SurveyMaker.BL.Models.csproj" />
+    <ProjectReference Include="..\JZR.SurveyMaker.BL\JZR.SurveyMaker.BL.csproj" />
+  </ItemGroup>
 
 </Project>
