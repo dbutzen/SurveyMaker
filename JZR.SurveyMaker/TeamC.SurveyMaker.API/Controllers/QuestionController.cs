@@ -31,27 +31,58 @@ namespace TeamC.SurveyMaker.API.Controllers
 
         // GET api/<QuestionController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public async Task<ActionResult<Question>> Get(Guid id)
         {
-            return "value";
+            try
+            {
+                return Ok(await QuestionManager.LoadById(id));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
 
         // POST api/<QuestionController>
-        [HttpPost]
-        public void Post([FromBody] string value)
+        [HttpPost("{id}")]
+        public async Task<IActionResult> Post([FromBody] Question question)
         {
+            try
+            {
+                return Ok(await QuestionManager.Insert(question));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
 
         // PUT api/<QuestionController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public async Task<IActionResult> Put(Guid id, [FromBody] Question question)
         {
+            try
+            {
+                return Ok(await QuestionManager.Update(question));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
 
         // DELETE api/<QuestionController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public async Task<IActionResult> Delete(Guid id)
         {
+            try
+            {
+                return Ok(await QuestionManager.Delete(id));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
     }
 }
