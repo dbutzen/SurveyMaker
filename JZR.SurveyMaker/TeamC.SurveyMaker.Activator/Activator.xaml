@@ -59,14 +59,17 @@
                 <ColumnDefinition Width="10"/>
             </Grid.ColumnDefinitions>
             <Grid Grid.Row="1" Grid.Column="1">
-                <DataGrid>
+                <DataGrid x:Name="dgvQuestions"
+                          IsReadOnly="True"
+                          AutoGenerateColumns="False">
                     <DataGrid.Columns>
                         <DataGridTemplateColumn Header="Actions">
                             <DataGridTemplateColumn.CellTemplate>
                                 <DataTemplate>
                                     <materialDesign:PopupBox>
                                         <StackPanel>
-                                            <Button>
+                                            <Button Margin="5"
+                                                    Width="100">
                                                 <StackPanel Orientation="Horizontal">
                                                     <materialDesign:PackIcon Kind="Edit"
                                                                          Margin="0 0 10 0"/>
@@ -78,7 +81,7 @@
                                 </DataTemplate>
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="Question"/>
+                        <DataGridTextColumn Header="Question" Binding="{Binding Text}"/>
                     </DataGrid.Columns>
                 </DataGrid>
             </Grid>
@@ -86,8 +89,8 @@
         </Grid>
         <Grid Grid.Row="2" Margin="10" HorizontalAlignment="Center">
             <StackPanel Orientation="Horizontal">
-                <Button Content="Edit" Margin="5"/>
-                <Button Content="Edit" Margin="5"/>
+                <Button Content="Edit" Margin="5" Width="75"/>
+                <Button Content="Delete" Margin="5" Width="75"/>
             </StackPanel>
         </Grid>
     </Grid>

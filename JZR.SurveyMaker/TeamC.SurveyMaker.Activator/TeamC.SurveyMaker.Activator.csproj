@@ -8,6 +8,11 @@
 
   <ItemGroup>
     <PackageReference Include="MaterialDesignThemes" Version="4.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\JZR.SurveyMaker.BL.Models\JZR.SurveyMaker.BL.Models.csproj" />
   </ItemGroup>
 
 </Project>
