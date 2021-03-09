@@ -200,8 +200,6 @@ namespace JZR.SurveyMaker.BL
                 List<Answer> answers = new List<Answer>();
                 await Task.Run(() =>
                 {
-
-
                     using (SurveyEntities dc = new SurveyEntities())
                     {
                         var questionAnswers = dc.tblQuestionAnswers.ToList().Where(qa => qa.QuestionId == questionId);

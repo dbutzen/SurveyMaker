@@ -11,6 +11,7 @@ namespace JZR.SurveyMaker.BL.Models
         public Guid Id { get; set; }
         public string Text { get; set; }
         public List<Answer> Answers { get; set; } = new List<Answer>();
+        public List<Activation> Activations { get; set;} 
 
         public Answer CorrectAnswer
         {

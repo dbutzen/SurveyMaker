@@ -30,7 +30,6 @@ namespace JZR.VehicleTracker.PL.Test
         }
 
 
-
         [TestMethod]
         public void LoadTest()
         {

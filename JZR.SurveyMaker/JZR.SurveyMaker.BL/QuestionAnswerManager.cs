@@ -28,7 +28,6 @@ namespace JZR.SurveyMaker.BL
 
                             question.Answers.ForEach(a =>
                             {
-
                                 tblQuestionAnswer newrow = new tblQuestionAnswer();
                                 newrow.Id = Guid.NewGuid();
                                 newrow.AnswerId = a.Id;

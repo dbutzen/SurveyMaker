@@ -144,14 +144,22 @@ namespace JZR.SurveyMaker.BL
                     using (SurveyEntities dc = new SurveyEntities())
                     {
                         tblQuestion tblQuestion = dc.tblQuestions.FirstOrDefault(q => q.Id == id);
-                        
 
                         if (tblQuestion != null)
                         {
                             question.Id = tblQuestion.Id;
                             question.Text = tblQuestion.Question;
 
-                            
+                            question.Activations = new List<Activation>();
+
+                            tblQuestion.TblActivations.ToList().ForEach(a => question.Activations.Add(new Activation
+                            {
+                                Id = a.Id,
+                                QuestionId = a.QuestionId,
+                                StartDate = a.StartDate,
+                                EndDate = a.EndDate,
+                                ActivationCode = a.ActivationCode
+                            }));
                         }
                         else
                         {
@@ -186,6 +194,16 @@ namespace JZR.SurveyMaker.BL
                                 Id = qa.AnswerId,
                                 IsCorrect = qa.IsCorrect,
                                 Text = qa.Answer.Answer
+                            }));
+
+                            question.Activations = new List<Activation>();
+                            q.TblActivations.ToList().ForEach(a => question.Activations.Add(new Activation
+                            {
+                                Id = a.Id,
+                                QuestionId = a.QuestionId,
+                                StartDate = a.StartDate,
+                                EndDate = a.EndDate,
+                                ActivationCode = a.ActivationCode
                             }));
 
                             questions.Add(question);
@@ -229,6 +247,56 @@ namespace JZR.SurveyMaker.BL
             catch (Exception)
             {
                 throw;
+            }
+        }
+
+        public async static Task<Question> LoadByActivationCode(string activationCode)
+        {
+            try
+            {
+                Question question = new Question();
+
+                await Task.Run(() =>
+                {
+                    using (SurveyEntities dc = new SurveyEntities())
+                    {
+                        var row = (from a in dc.tblActivations
+                                   join q in dc.tblQuestions on a.QuestionId equals q.Id
+                                   where a.ActivationCode == activationCode
+                                   && a.StartDate <= DateTime.Now
+                                   && a.EndDate >= DateTime.Now
+                                   select q).FirstOrDefault();
+
+                        question.Id = row.Id;
+                        question.Text = row.Question;
+
+                        question.Activations = new List<Activation>();
+                        row.TblActivations.ToList().ForEach(a => question.Activations.Add(new Activation
+                        {
+                            Id = a.Id,
+                            QuestionId = a.QuestionId,
+                            StartDate = a.StartDate,
+                            EndDate = a.EndDate,
+                            ActivationCode = a.ActivationCode
+                        }));
+
+                        question.Answers = new List<Answer>();
+                        row.TblQuestionAnswers.ToList().ForEach(qa => question.Answers.Add(new Answer
+                        {
+                            Id = qa.Id,
+                            Text = qa.Answer.Answer,
+                            IsCorrect = qa.IsCorrect
+                        }));
+                        
+                    };
+
+                });
+                
+                return question;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
             }
         }
     }

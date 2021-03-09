@@ -21,6 +21,20 @@ namespace JZR.SurveyMaker.BL.Test
         }
 
         [TestMethod]
+        public void LoadByIdTest()
+        {
+            var task = QuestionManager.LoadByText("How many holes are on a standard bowling ball?");
+            task.Wait();
+            var question = task.Result;
+
+            var task2 = QuestionManager.LoadById(question.Id);
+            task2.Wait();
+            var question1 = task2.Result;
+            
+            Assert.IsTrue(question.Text == question1.Text);
+        }
+
+        [TestMethod]
         public  void InsertTest()
         {
             var task = QuestionManager.Insert(new Question { Text = "NewQuestion" }, true);
@@ -51,6 +65,15 @@ namespace JZR.SurveyMaker.BL.Test
             var results = QuestionManager.Delete(question.Id, true);
             results.Wait();
             Assert.IsTrue(results.Result > 0);
+        }
+
+        [TestMethod]
+        public void LoadByActivationCodeTest()
+        {
+            var results = QuestionManager.LoadByActivationCode("1q2w3e");
+            results.Wait();
+            Assert.IsTrue(results.Result.Text == "How many rings are on the Olympic flag?");
+
         }
     }
 }
