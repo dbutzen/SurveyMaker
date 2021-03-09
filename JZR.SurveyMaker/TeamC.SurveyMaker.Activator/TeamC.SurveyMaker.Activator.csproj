@@ -13,7 +13,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\JZR.SurveyMaker.BL.Models\JZR.SurveyMaker.BL.Models.csproj" />
-    <ProjectReference Include="..\JZR.SurveyMaker.BL\JZR.SurveyMaker.BL.csproj" />
   </ItemGroup>
 
 </Project>
