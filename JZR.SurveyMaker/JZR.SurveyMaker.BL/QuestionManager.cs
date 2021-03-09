@@ -150,6 +150,15 @@ namespace JZR.SurveyMaker.BL
                             question.Id = tblQuestion.Id;
                             question.Text = tblQuestion.Question;
 
+                            question.Answers = new List<Answer>();
+                            tblQuestion.TblQuestionAnswers.ToList().ForEach(qa => question.Answers.Add(new Answer
+                            {
+                                Id = qa.Id,
+                                Text = qa.Answer.Answer,
+                                IsCorrect = qa.IsCorrect
+                            }));
+
+
                             question.Activations = new List<Activation>();
 
                             tblQuestion.TblActivations.ToList().ForEach(a => question.Activations.Add(new Activation
