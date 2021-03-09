@@ -19,7 +19,7 @@ namespace JZR.SurveyMaker.BL
 
                 await Task.Run(() =>
                 {
-                IDbContextTransaction transaction = null;
+                    IDbContextTransaction transaction = null;
 
                     using (SurveyEntities dc = new SurveyEntities())
                     {
@@ -269,38 +269,53 @@ namespace JZR.SurveyMaker.BL
                 {
                     using (SurveyEntities dc = new SurveyEntities())
                     {
-                        var row = (from a in dc.tblActivations
-                                   join q in dc.tblQuestions on a.QuestionId equals q.Id
-                                   where a.ActivationCode == activationCode
-                                   && a.StartDate <= DateTime.Now
-                                   && a.EndDate >= DateTime.Now
-                                   select q).FirstOrDefault();
 
-                        question.Id = row.Id;
-                        question.Text = row.Question;
+                        var activation = dc.tblActivations.FirstOrDefault(a => a.ActivationCode == activationCode);
 
-                        question.Activations = new List<Activation>();
-                        row.TblActivations.ToList().ForEach(a => question.Activations.Add(new Activation
+                        if (activation.StartDate <= DateTime.Today && activation.EndDate >= DateTime.Today)
                         {
-                            Id = a.Id,
-                            QuestionId = a.QuestionId,
-                            StartDate = a.StartDate,
-                            EndDate = a.EndDate,
-                            ActivationCode = a.ActivationCode
-                        }));
+                            var row = (from a in dc.tblActivations
+                                       join q in dc.tblQuestions on a.QuestionId equals q.Id
+                                       where a.ActivationCode == activationCode
+                                       select q).FirstOrDefault();
 
-                        question.Answers = new List<Answer>();
-                        row.TblQuestionAnswers.ToList().ForEach(qa => question.Answers.Add(new Answer
+                            if (row != null)
+                            {
+                                question.Id = row.Id;
+                                question.Text = row.Question;
+
+                                question.Activations = new List<Activation>();
+                                row.TblActivations.ToList().ForEach(a => question.Activations.Add(new Activation
+                                {
+                                    Id = a.Id,
+                                    QuestionId = a.QuestionId,
+                                    StartDate = a.StartDate,
+                                    EndDate = a.EndDate,
+                                    ActivationCode = a.ActivationCode
+                                }));
+
+                                question.Answers = new List<Answer>();
+                                row.TblQuestionAnswers.ToList().ForEach(qa => question.Answers.Add(new Answer
+                                {
+                                    Id = qa.Id,
+                                    Text = qa.Answer.Answer,
+                                    IsCorrect = qa.IsCorrect
+                                }));
+                            }
+                            else
+                            {
+                                throw new Exception("Row could not be found.");
+                            }
+                        }
+                        else
                         {
-                            Id = qa.Id,
-                            Text = qa.Answer.Answer,
-                            IsCorrect = qa.IsCorrect
-                        }));
+                            throw new Exception("Activation Code is not active");
+                        }
                         
                     };
 
                 });
-                
+
                 return question;
             }
             catch (Exception ex)

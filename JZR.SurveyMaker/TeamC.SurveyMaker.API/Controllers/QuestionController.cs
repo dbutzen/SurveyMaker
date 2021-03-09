@@ -30,12 +30,26 @@ namespace TeamC.SurveyMaker.API.Controllers
         }
 
         // GET api/<QuestionController>/5
-        [HttpGet("{id}")]
+        [HttpGet("{id:Guid}")]
         public async Task<ActionResult<Question>> Get(Guid id)
         {
             try
             {
                 return Ok(await QuestionManager.LoadById(id));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        // GET api/<QuestionController>/5
+        [HttpGet("{activationCode}")]
+        public async Task<ActionResult<Question>> LoadByActivationCode(string activationCode)
+        {
+            try
+            {
+                return Ok(await QuestionManager.LoadByActivationCode(activationCode));
             }
             catch (Exception ex)
             {
@@ -64,20 +78,6 @@ namespace TeamC.SurveyMaker.API.Controllers
             try
             {
                 return Ok(await QuestionManager.Update(question));
-            }
-            catch (Exception ex)
-            {
-                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
-            }
-        }
-
-        // DELETE api/<QuestionController>/5
-        [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(Guid id)
-        {
-            try
-            {
-                return Ok(await QuestionManager.Delete(id));
             }
             catch (Exception ex)
             {

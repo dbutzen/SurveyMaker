@@ -11,7 +11,7 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
-            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <!--Header-->
@@ -35,9 +35,12 @@
                                          Margin="0 0 10 0"
                                          VerticalAlignment="Center"/>
                     <StackPanel VerticalAlignment="Center">
-                        <TextBlock Text="Question Activator"
+                        <TextBlock Text="Activator"
                        FontSize="17"
                        Foreground="White"/>
+                        <TextBlock Text="By Team C"
+                                   FontSize="7"
+                                   Foreground="White"/>
                     </StackPanel>
 
                 </StackPanel>
@@ -45,44 +48,50 @@
         </Grid>
         <!--Body-->
         <Grid Grid.Row="1">
-
             <Grid.RowDefinitions>
-                <RowDefinition Height="auto"/>
-                <RowDefinition Height="200"/>
+                <RowDefinition Height="10"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="10"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0" Margin="10">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="20"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0">
-                    <TextBlock Text="New Activation"/>
-                    <ComboBox />
-                </StackPanel>
-                <StackPanel Grid.Column="2">
-                    <TextBlock Text="Edit Activation"/>
-                    <ComboBox />
-                </StackPanel>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="10"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <DataGrid x:Name="dgvQuestions"
+                          IsReadOnly="True"
+                          AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="Actions">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <materialDesign:PopupBox>
+                                        <StackPanel>
+                                            <Button Margin="5"
+                                                    Width="100">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <materialDesign:PackIcon Kind="Edit"
+                                                                         Margin="0 0 10 0"/>
+                                                    <TextBlock Text="Edit"/>
+                                                </StackPanel>
+                                            </Button>
+                                        </StackPanel>
+                                    </materialDesign:PopupBox>
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="Question" Binding="{Binding Text}"/>
+                    </DataGrid.Columns>
+                </DataGrid>
             </Grid>
-            <Grid Grid.Row="1">
-                <StackPanel>
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Start Time"/>
-                        <DatePicker  Width="200"/>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="End Time"/>
-                        <DatePicker  Width="200"/>
-                    </StackPanel>
-                </StackPanel>
-            </Grid>
-
 
         </Grid>
-
+        <Grid Grid.Row="2" Margin="10" HorizontalAlignment="Center">
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Edit" Margin="5" Width="75"/>
+                <Button Content="Delete" Margin="5" Width="75"/>
+            </StackPanel>
+        </Grid>
     </Grid>
 </Window>
-
-    

@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using JZR.SurveyMaker.BL;
+using JZR.SurveyMaker.BL.Models;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,36 +15,19 @@ namespace TeamC.SurveyMaker.API.Controllers
     [ApiController]
     public class ResponseController : ControllerBase
     {
-        // GET: api/<ResponseController>
-        [HttpGet]
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
 
-        // GET api/<ResponseController>/5
-        [HttpGet("{id}")]
-        public string Get(int id)
+        // POST api/<QuestionController>
+        [HttpPost("{id}")]
+        public async Task<IActionResult> Post([FromBody] Response response)
         {
-            return "value";
-        }
-
-        // POST api/<ResponseController>
-        [HttpPost]
-        public void Post([FromBody] string value)
-        {
-        }
-
-        // PUT api/<ResponseController>/5
-        [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-        }
-
-        // DELETE api/<ResponseController>/5
-        [HttpDelete("{id}")]
-        public void Delete(int id)
-        {
+            try
+            {
+                return Ok(await ResponseManager.Insert(response));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
         }
     }
 }

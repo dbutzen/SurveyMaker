@@ -49,14 +49,18 @@ namespace TeamC.SurveyMaker.Activator
 
         private void Rebind()
         {
-            //dgvQuestions.ItemsSource = null;
-            //dgvQuestions.ItemsSource = questions;
+            dgvQuestions.ItemsSource = null;
+            dgvQuestions.ItemsSource = questions;
         }
 
         private HttpClient InitializeClient()
         {
             var client = new HttpClient();
-            client.BaseAddress = new Uri("https://localhost:44327/api/");
+            // LOCAL API
+            //client.BaseAddress = new Uri("https://localhost:44327/api/");
+
+            // WEB API
+            client.BaseAddress = new Uri("https://teamcsurveymakerapi.azurewebsites.net/api/");
             return client;
         }
     }

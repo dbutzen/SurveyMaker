@@ -51,9 +51,9 @@ namespace JZR.SurveyMaker.BL
 
                 return results;
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
 
@@ -77,25 +77,27 @@ namespace JZR.SurveyMaker.BL
             {
                 List<Activation> activations = new List<Activation>();
 
-                using (SurveyEntities dc = new SurveyEntities())
+                await Task.Run(() =>
                 {
-                    dc.tblActivations
-                        .ToList()
-                        .ForEach(a => activations.Add(new Activation
-                        {
-                            Id = a.Id,
-                            QuestionId = a.QuestionId,
-                            StartDate = a.StartDate,
-                            EndDate = a.EndDate,
-                            ActivationCode = a.ActivationCode,
-                        }));
-
-                    return activations;
-                }
+                    using (SurveyEntities dc = new SurveyEntities())
+                    {
+                        dc.tblActivations
+                            .ToList()
+                            .ForEach(a => activations.Add(new Activation
+                            {
+                                Id = a.Id,
+                                QuestionId = a.QuestionId,
+                                StartDate = a.StartDate,
+                                EndDate = a.EndDate,
+                                ActivationCode = a.ActivationCode,
+                            }));
+                    }
+                });
+                return activations;
             }
             catch (Exception ex)
             {
-                throw;
+                throw ex;
             }
         }
 
@@ -103,34 +105,39 @@ namespace JZR.SurveyMaker.BL
         {
             try
             {
-                IDbContextTransaction transaction = null;
-                using (SurveyEntities dc = new SurveyEntities())
+                int results = 0;
+                await Task.Run(() =>
                 {
-                    tblActivation row = dc.tblActivations.FirstOrDefault(a => a.Id == activation.Id);
-                    int results = 0;
-                    if (row != null)
+                    IDbContextTransaction transaction = null;
+                    using (SurveyEntities dc = new SurveyEntities())
                     {
-                        if (rollback) transaction = dc.Database.BeginTransaction();
+                        tblActivation row = dc.tblActivations.FirstOrDefault(a => a.Id == activation.Id);
+                        
+                        if (row != null)
+                        {
+                            if (rollback) transaction = dc.Database.BeginTransaction();
 
-                        row.QuestionId = activation.QuestionId;
-                        row.StartDate = activation.StartDate;
-                        row.EndDate = activation.EndDate;
-                        row.ActivationCode = activation.ActivationCode;
+                            row.QuestionId = activation.QuestionId;
+                            row.StartDate = activation.StartDate;
+                            row.EndDate = activation.EndDate;
+                            row.ActivationCode = activation.ActivationCode;
 
-                        results = dc.SaveChanges();
-                        if (rollback) transaction.Rollback();
-                        return results;
+                            results = dc.SaveChanges();
+                            if (rollback) transaction.Rollback();
+                            
+                        }
+                        else
+                        {
+                            throw new Exception("Row was not found.");
+                        }
                     }
-                    else
-                    {
-                        throw new Exception("Row was not found.");
-                    }
-                }
+                });
+                return results;
             }
             catch (Exception ex)
             {
 
-                throw;
+                throw ex;
             }
         }
 
@@ -138,31 +145,35 @@ namespace JZR.SurveyMaker.BL
         {
             try
             {
-                IDbContextTransaction transaction = null;
-                using (SurveyEntities dc = new SurveyEntities())
+                int results = 0;
+                await Task.Run(() =>
                 {
-                    tblActivation row = dc.tblActivations.FirstOrDefault(a => a.Id == activation.Id);
-                    int results = 0;
-                    if (row != null)
+                    IDbContextTransaction transaction = null;
+                    using (SurveyEntities dc = new SurveyEntities())
                     {
-                        if (rollback) transaction = dc.Database.BeginTransaction();
+                        tblActivation row = dc.tblActivations.FirstOrDefault(a => a.Id == activation.Id);
 
-                        dc.tblActivations.Remove(row);
+                        if (row != null)
+                        {
+                            if (rollback) transaction = dc.Database.BeginTransaction();
 
-                        results = dc.SaveChanges();
-                        if (rollback) transaction.Rollback();
-                        return results;
+                            dc.tblActivations.Remove(row);
+
+                            results = dc.SaveChanges();
+                            if (rollback) transaction.Rollback();
+
+                        }
+                        else
+                        {
+                            throw new Exception("Row was not found.");
+                        }
                     }
-                    else
-                    {
-                        throw new Exception("Row was not found.");
-                    }
-                }
+                });
+                return results;
             }
             catch (Exception ex)
             {
-
-                throw;
+                throw ex;
             }
         }
     }

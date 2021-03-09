@@ -28,7 +28,8 @@ namespace JZR.SurveyMaker.PL
             if (!optionsBuilder.IsConfigured)
             {
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Server=(localdb)\\ProjectsV13;Database=JZR.SurveyMaker.DB;Integrated Security=True");
+                //optionsBuilder.UseSqlServer("Server=(localdb)\\ProjectsV13;Database=JZR.SurveyMaker.DB;Integrated Security=True");
+                optionsBuilder.UseSqlServer("Server=teamcserver.database.windows.net;Database=teamcdb;User Id=teamc;Password=d4x&6i813?4S");
                 optionsBuilder.UseLazyLoadingProxies();
             }
         }

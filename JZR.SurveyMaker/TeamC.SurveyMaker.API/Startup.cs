@@ -30,8 +30,9 @@ namespace TeamC.SurveyMaker.API
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "TeamC.SurveyMaker.API", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Survey Maker API", Version = "v1" });
             });
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,7 +42,7 @@ namespace TeamC.SurveyMaker.API
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "TeamC.SurveyMaker.API v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("v1/swagger.json", "Survey Maker API v1"));
             }
 
             app.UseHttpsRedirection();
