@@ -1,10 +1,12 @@
 ﻿using JZR.SurveyMaker.BL.Models;
+using MaterialDesignThemes.Wpf;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
@@ -22,6 +24,7 @@ namespace TeamC.SurveyMaker.Activator
     public partial class Activator : Window
     {
         List<Question> questions;
+        Question selectedQuestion;
 
         public Activator()
         {
@@ -29,21 +32,28 @@ namespace TeamC.SurveyMaker.Activator
 
             questions = new List<Question>();
 
-            Reload();
+            InitialLoad();
         }
 
-        private void Reload()
+        private async void InitialLoad()
         {
-            HttpClient client = InitializeClient();
-            HttpResponseMessage response;
-            string result;
-            dynamic items;
+            await ReloadAsync();
+        }
 
-            response = client.GetAsync("Question").Result;
-            result = response.Content.ReadAsStringAsync().Result;
-            items = (JArray)JsonConvert.DeserializeObject(result);
-            questions = items.ToObject<List<Question>>();
+        private async Task ReloadAsync()
+        {
+            await Task.Run(() =>
+            {
+                HttpClient client = InitializeClient();
+                HttpResponseMessage response;
+                string result;
+                dynamic items;
 
+                response = client.GetAsync("Question").Result;
+                result = response.Content.ReadAsStringAsync().Result;
+                items = (JArray)JsonConvert.DeserializeObject(result);
+                questions = items.ToObject<List<Question>>();
+            });
             Rebind();
         }
 
@@ -62,6 +72,31 @@ namespace TeamC.SurveyMaker.Activator
             // WEB API
             client.BaseAddress = new Uri("https://teamcsurveymakerapi.azurewebsites.net/api/");
             return client;
+        }
+
+        private void dgvQuestions_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            selectedQuestion = (Question)dgvQuestions.SelectedItem;
+            dgvActivations.ItemsSource = null;
+            dgvActivations.ItemsSource = selectedQuestion.Activations;
+        }
+
+        private async void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            var manage = new ucManageActivation();
+            await DialogHost.Show(manage);
+        }
+
+        private async void btnEdit_Click(object sender, RoutedEventArgs e)
+        {
+            var activation = (Activation)((Button)sender).DataContext;
+            var manage = new ucManageActivation(activation);
+            await DialogHost.Show(manage);
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

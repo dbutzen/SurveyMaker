@@ -7,91 +7,168 @@
         xmlns:local="clr-namespace:TeamC.SurveyMaker.Activator"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Activator" Height="450" Width="800">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="auto"/>
-        </Grid.RowDefinitions>
-        <!--Header-->
-        <Grid Grid.Row="0" Background="#3d3d3d">
+        
+        Title="Question Activator" Height="800" Width="800">
+    <materialDesign:DialogHost>
+        <Grid>
             <Grid.RowDefinitions>
-                <RowDefinition Height="10"/>
+                <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>
-                <RowDefinition Height="10"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
             </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="10"/>
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Row="1" Grid.Column="1">
-                <StackPanel Orientation="Horizontal">
-                    <materialDesign:PackIcon Kind="CallToAction"
+            <!--Header-->
+            <Grid Grid.Row="0" Background="#3d3d3d">
+                <Grid Margin="10">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="CallToAction"
                                          Foreground="White"
                                          Width="30"
                                          Height="30"
                                          Margin="0 0 10 0"
                                          VerticalAlignment="Center"/>
-                    <StackPanel VerticalAlignment="Center">
-                        <TextBlock Text="Activator"
+                        <StackPanel VerticalAlignment="Center">
+                            <TextBlock Text="Question Activator"
                        FontSize="17"
                        Foreground="White"/>
-                        <TextBlock Text="By Team C"
-                                   FontSize="7"
-                                   Foreground="White"/>
+
+                        </StackPanel>
+
                     </StackPanel>
-
-                </StackPanel>
+                </Grid>
             </Grid>
-        </Grid>
-        <!--Body-->
-        <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="10"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="10"/>
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="10"/>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="10"/>
-            </Grid.ColumnDefinitions>
-            <Grid Grid.Row="1" Grid.Column="1">
-                <DataGrid x:Name="dgvQuestions"
-                          IsReadOnly="True"
-                          AutoGenerateColumns="False">
-                    <DataGrid.Columns>
-                        <DataGridTemplateColumn Header="Actions">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <materialDesign:PopupBox>
-                                        <StackPanel>
-                                            <Button Margin="5"
-                                                    Width="100">
-                                                <StackPanel Orientation="Horizontal">
-                                                    <materialDesign:PackIcon Kind="Edit"
-                                                                         Margin="0 0 10 0"/>
-                                                    <TextBlock Text="Edit"/>
-                                                </StackPanel>
-                                            </Button>
-                                        </StackPanel>
-                                    </materialDesign:PopupBox>
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="Question" Binding="{Binding Text}"/>
-                    </DataGrid.Columns>
-                </DataGrid>
+            <!--<Question-->
+            <Grid Grid.Row="1" Margin="10">
+                <materialDesign:Card Grid.Row="1">
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock
+                            Grid.Row="0"
+                            FontWeight="Bold"
+                            FontSize="16"
+                            Margin="10"
+                       Text="Select a Question"/>
+                        <ListBox
+                            Grid.Row="1"
+                            x:Name="dgvQuestions"
+                            Background="Transparent"
+                            SelectionChanged="dgvQuestions_SelectionChanged">
+                            <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Text}" FontSize="15"/>
+                            </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </Grid>
+                </materialDesign:Card>
             </Grid>
+            <!--Activations-->
+            <Grid Grid.Row="2">
+                <materialDesign:Card
+                Grid.Row="1"
+                Margin="10">
+                    <Grid Margin="10">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="*"/>
+                        </Grid.RowDefinitions>
+                        <Button
+                            x:Name="btnAdd"
+                                HorizontalAlignment="Right"
+                                Grid.Column="1"
+                            Click="btnAdd_Click">
+                            <StackPanel Orientation="Horizontal">
+                                <materialDesign:PackIcon
+                                        Kind="Add"
+                                        Margin="0 0 10 0"
+                                        VerticalAlignment="Center"/>
+                                <TextBlock Text="Add New Activation"
+                               VerticalAlignment="Center"/>
+                            </StackPanel>
+                        </Button>
+                        <DataGrid
+                        Grid.Row="1"
+                        x:Name="dgvActivations"
+                        IsReadOnly="True"
+                        Background="Transparent"
+                        AutoGenerateColumns="False">
+                            <DataGrid.Columns>
+                                <DataGridTemplateColumn Header="Actions" CanUserResize="True">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel Orientation="Horizontal">
+                                                <Button
+                                                    x:Name="btnEdit"
+                                                    ToolTip="Edit"
+                                                    Margin="0 0 10 0"
+                                                    Click="btnEdit_Click">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <materialDesign:PackIcon Kind="Edit"
+                                                                             VerticalAlignment="Center"/>
+                                                    </StackPanel>
+                                                </Button>
+                                                <Button
+                                                    x:Name="btnDelete"
+                                                    ToolTip="Delete"
+                                                    Click="btnDelete_Click"
+                                                    Background="#C33434"
+                                                    BorderBrush="#C33434">
+                                                    <StackPanel Orientation="Horizontal">
+                                                        <materialDesign:PackIcon Kind="Delete"
+                                                                             VerticalAlignment="Center"/>
+                                                    </StackPanel>
+                                                </Button>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
+                                <DataGridTextColumn Header="Activation Code" Binding="{Binding ActivationCode}"/>
+                                <DataGridTextColumn Header="Start Date"
+                                                SortMemberPath="StartDate"
+                                                Binding="{Binding StartDate, StringFormat=MMM-dd-yyyy}"/>
+                                <DataGridTextColumn Header="End Date"
+                                                SortMemberPath="StartDate"
+                                                Binding="{Binding EndDate, StringFormat=MMM-dd-yyyy}"/>
+                                <DataGridTemplateColumn Header="Status" CanUserResize="False" Width="auto">
+                                    <DataGridTemplateColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel>
+                                                <TextBlock Text="{Binding Status}" FontWeight="Bold">
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="{x:Type TextBlock}">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding Status}" Value="Inactive">
+                                                                    <Setter Property="Foreground" Value="#F9962E"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding Status}" Value="Active">
+                                                                    <Setter Property="Foreground" Value="#50A150"/>
+                                                                </DataTrigger>
+                                                                <DataTrigger Binding="{Binding Status}" Value="Expired">
+                                                                    <Setter Property="Foreground" Value="Red"/>
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </DataGridTemplateColumn.CellTemplate>
+                                </DataGridTemplateColumn>
 
-        </Grid>
-        <Grid Grid.Row="2" Margin="10" HorizontalAlignment="Center">
+                            </DataGrid.Columns>
+                        </DataGrid>
+                    </Grid>
+                </materialDesign:Card>
+            </Grid>
+            <!--<Grid Grid.Row="3" Margin="10" HorizontalAlignment="Center">
             <StackPanel Orientation="Horizontal">
                 <Button Content="Edit" Margin="5" Width="75"/>
                 <Button Content="Delete" Margin="5" Width="75"/>
             </StackPanel>
+        </Grid>-->
         </Grid>
-    </Grid>
+    </materialDesign:DialogHost>
 </Window>

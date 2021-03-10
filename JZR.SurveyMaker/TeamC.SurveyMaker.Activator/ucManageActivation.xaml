@@ -1,0 +1,93 @@
+﻿<UserControl x:Class="TeamC.SurveyMaker.Activator.ucManageActivation"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
+             mc:Ignorable="d" 
+        Height="250" Width="250">
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Background="#303030">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="10"/>
+                <ColumnDefinition Width="12*"/>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="10"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="5"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="5"/>
+            </Grid.RowDefinitions>
+            <Grid Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="txtTitle" Text="Manage Activation" Grid.Column="0" Grid.ColumnSpan="2" Foreground="White" FontSize="15" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+
+            </Grid>
+            <StackPanel Grid.Row="1" Grid.Column="2">
+                <Button IsEnabled="{Binding CloseButtonIsEnabled}" Command="{x:Static wpf:DialogHost.CloseDialogCommand}" Background="Transparent" HorizontalAlignment="Right" Width="45" Height="30" BorderBrush="Transparent" ToolTip="Close">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Kind="Close" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Button>
+            </StackPanel>
+        </Grid>
+        <!--Body-->
+        <Grid Grid.Row="1" Margin="10" VerticalAlignment="Center">
+            <StackPanel>
+                <StackPanel Margin="2">
+                    <TextBlock
+                        Text="Activation Code"
+                        FontSize="10"/>
+                    <TextBox x:Name="txtActivationCode" MaxLength="6"/>
+                </StackPanel>
+                <StackPanel Margin="2">
+                    <TextBlock
+                        Text="Start Date"
+                        FontSize="10"/>
+                    <DatePicker x:Name="dpStartDate"
+                                SelectedDateChanged="date_SelectedDateChanged"/>
+                </StackPanel>
+                <StackPanel Margin="2">
+                    <TextBlock
+                        Text="End Date"
+                        FontSize="10"/>
+                    <DatePicker x:Name="dpEndDate"  SelectedDateChanged="date_SelectedDateChanged"/>
+                </StackPanel>
+                <StackPanel Margin="10" Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button x:Name="btnAdd">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon
+                            Margin="0 0 10 0"
+                            VerticalAlignment="Center"
+                            Kind="Add"/>
+                            <TextBlock
+                            VerticalAlignment="Center"
+                            Text="Add"/>
+                        </StackPanel>
+                    </Button>
+                    <Button x:Name="btnSave" Visibility="Collapsed">
+                        <StackPanel Orientation="Horizontal">
+                            <materialDesign:PackIcon
+                            Margin="0 0 10 0"
+                            VerticalAlignment="Center"
+                            Kind="Floppy"/>
+                            <TextBlock
+                            VerticalAlignment="Center"
+                            Text="Save"/>
+                        </StackPanel>
+                    </Button>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>
+

@@ -15,5 +15,19 @@ namespace JZR.SurveyMaker.BL.Models
         public string ActivationCode { get; set;} 
 
         public string QuestionText { get; set; }
+
+        // Additional Property
+        public string Status
+        {
+            get 
+            {
+                if (DateTime.Today >= StartDate && DateTime.Today <= EndDate)
+                    return "Active";
+                else if (DateTime.Today < StartDate)
+                    return "Inactive";
+                else
+                    return "Expired";
+            }
+        }
     }
 }

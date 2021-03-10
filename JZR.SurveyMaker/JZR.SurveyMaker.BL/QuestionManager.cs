@@ -272,46 +272,54 @@ namespace JZR.SurveyMaker.BL
 
                         var activation = dc.tblActivations.FirstOrDefault(a => a.ActivationCode == activationCode);
 
-                        if (activation.StartDate <= DateTime.Today && activation.EndDate >= DateTime.Today)
+                        if (activation != null)
                         {
-                            var row = (from a in dc.tblActivations
-                                       join q in dc.tblQuestions on a.QuestionId equals q.Id
-                                       where a.ActivationCode == activationCode
-                                       select q).FirstOrDefault();
-
-                            if (row != null)
+                            if (DateTime.Today >= activation.StartDate && DateTime.Today <= activation.EndDate)
                             {
-                                question.Id = row.Id;
-                                question.Text = row.Question;
+                                var row = (from a in dc.tblActivations
+                                           join q in dc.tblQuestions on a.QuestionId equals q.Id
+                                           where a.ActivationCode == activation.ActivationCode
+                                           select q).FirstOrDefault();
 
-                                question.Activations = new List<Activation>();
-                                row.TblActivations.ToList().ForEach(a => question.Activations.Add(new Activation
+                                if (row != null)
                                 {
-                                    Id = a.Id,
-                                    QuestionId = a.QuestionId,
-                                    StartDate = a.StartDate,
-                                    EndDate = a.EndDate,
-                                    ActivationCode = a.ActivationCode
-                                }));
+                                    question.Id = row.Id;
+                                    question.Text = row.Question;
 
-                                question.Answers = new List<Answer>();
-                                row.TblQuestionAnswers.ToList().ForEach(qa => question.Answers.Add(new Answer
+                                    question.Activations = new List<Activation>();
+                                    row.TblActivations.ToList().ForEach(a => question.Activations.Add(new Activation
+                                    {
+                                        Id = a.Id,
+                                        QuestionId = a.QuestionId,
+                                        StartDate = a.StartDate,
+                                        EndDate = a.EndDate,
+                                        ActivationCode = a.ActivationCode
+                                    }));
+
+                                    question.Answers = new List<Answer>();
+                                    row.TblQuestionAnswers.ToList().ForEach(qa => question.Answers.Add(new Answer
+                                    {
+                                        Id = qa.Id,
+                                        Text = qa.Answer.Answer,
+                                        IsCorrect = qa.IsCorrect
+                                    }));
+                                }
+                                else
                                 {
-                                    Id = qa.Id,
-                                    Text = qa.Answer.Answer,
-                                    IsCorrect = qa.IsCorrect
-                                }));
+                                    throw new Exception("Question could not be found.");
+                                }
+                            }
+                            else if (DateTime.Today < activation.StartDate)
+                            {
+                                throw new Exception("Activation code is not active.");
                             }
                             else
-                            {
-                                throw new Exception("Row could not be found.");
-                            }
+                                throw new Exception("Activation code is expired.");
                         }
                         else
                         {
-                            throw new Exception("Activation Code is not active");
+                            throw new Exception("Activation code is not valid.");
                         }
-                        
                     };
 
                 });
