@@ -93,7 +93,7 @@ namespace JZR.SurveyMaker.BL
                             }));
                     }
                 });
-                return activations;
+                return activations.OrderBy(a => a.StartDate);
             }
             catch (Exception ex)
             {
@@ -141,7 +141,7 @@ namespace JZR.SurveyMaker.BL
             }
         }
 
-        public async static Task<int> Delete(Activation activation, bool rollback = false)
+        public async static Task<int> Delete(Guid id, bool rollback = false)
         {
             try
             {
@@ -151,7 +151,7 @@ namespace JZR.SurveyMaker.BL
                     IDbContextTransaction transaction = null;
                     using (SurveyEntities dc = new SurveyEntities())
                     {
-                        tblActivation row = dc.tblActivations.FirstOrDefault(a => a.Id == activation.Id);
+                        tblActivation row = dc.tblActivations.FirstOrDefault(a => a.Id == id);
 
                         if (row != null)
                         {

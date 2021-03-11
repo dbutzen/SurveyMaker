@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="TeamC.SurveyMaker.Activator.ucDialog"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:TeamC.SurveyMaker.Activator"
+             mc:Ignorable="d" 
+             Height="150" Width="300">
+    <Grid Background="White">
+        <Grid Margin="10">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <TextBlock
+                VerticalAlignment="Center"
+                HorizontalAlignment="Center"
+                Text="Are you sure you want to delete?"
+                       FontSize="18"/>
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button x:Name="btnYes"
+                        TabIndex="1"
+                        Content="Yes"
+                        Background="#C33434"
+                        BorderBrush="#C33434"
+                        Width="100" Margin="5" Click="btnYes_Click"/>
+                <Button x:Name="btnNo"
+                        Content="No"
+                        TabIndex="0"
+                        Width="100"
+                        Margin="5"
+                        Click="btnNo_Click"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

@@ -7,19 +7,25 @@
         xmlns:local="clr-namespace:TeamC.SurveyMaker.Activator"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        
-        Title="Question Activator" Height="800" Width="800">
+        MinHeight="600"
+        MinWidth="800"
+        Height="600"
+        Width="800"
+        Title="Question Activator">
     <materialDesign:DialogHost>
-        <Grid>
+        <Grid x:Name="grdMainGrid">
             <Grid.RowDefinitions>
                 <RowDefinition Height="50"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
                 <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <!--Header-->
-            <Grid Grid.Row="0" Background="#3d3d3d">
-                <Grid Margin="10">
+            <Grid Grid.Row="0" Background="#3F51B5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Column="0" Margin="10">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="CallToAction"
                                          Foreground="White"
@@ -36,36 +42,41 @@
 
                     </StackPanel>
                 </Grid>
+                <Button
+                    x:Name="btnRefresh"
+                    Margin="10"
+                    Background="Transparent"
+                    BorderBrush="Transparent"
+                    Click="btnRefresh_Click"
+                    Grid.Column="1">
+                    <StackPanel Orientation="Horizontal">
+                        <materialDesign:PackIcon Margin="0 0 10 0" VerticalAlignment="Center" Kind="Refresh"/>
+                        <TextBlock VerticalAlignment="Center" Text="Refresh"/>
+                    </StackPanel>
+                </Button>
             </Grid>
-            <!--<Question-->
-            <Grid Grid.Row="1" Margin="10">
-                <materialDesign:Card Grid.Row="1">
-                    <Grid Margin="10">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="auto"/>
-                            <RowDefinition Height="*"/>
-                        </Grid.RowDefinitions>
-                        <TextBlock
-                            Grid.Row="0"
-                            FontWeight="Bold"
-                            FontSize="16"
-                            Margin="10"
-                       Text="Select a Question"/>
-                        <ListBox
-                            Grid.Row="1"
-                            x:Name="dgvQuestions"
-                            Background="Transparent"
-                            SelectionChanged="dgvQuestions_SelectionChanged">
-                            <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <TextBlock Text="{Binding Text}" FontSize="15"/>
-                            </DataTemplate>
-                            </ListBox.ItemTemplate>
-                        </ListBox>
-                    </Grid>
-                </materialDesign:Card>
+            <!--Message Bar-->
+            <Grid x:Name="grdMessageBar" Visibility="Visible" Grid.Row="1" Background="LightCoral">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="50"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Column="0" x:Name="txtMessage"
+                       TextWrapping="Wrap"
+                       FontSize="15"
+                       Margin="10"
+                       Foreground="White"
+                       VerticalAlignment="Center"/>
+                <Button x:Name="btnCloseMessageBar" Grid.Column="1"
+                    ToolTip="Close"
+                    Margin="2"
+                    Background="Transparent"
+                    BorderBrush="{x:Null}"
+                    Click="btnCloseMessageBar_Click">
+                    <materialDesign:PackIcon Kind="Close" Foreground="White"/>
+                </Button>
             </Grid>
-            <!--Activations-->
+            <!--Body-->
             <Grid Grid.Row="2">
                 <materialDesign:Card
                 Grid.Row="1"
@@ -73,26 +84,67 @@
                     <Grid Margin="10">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="auto"/>
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
-                        <Button
+                        <ProgressBar
+                            Grid.RowSpan="4"
+                            x:Name="pbProgress"
+                            Visibility="Visible"
+                            VerticalAlignment="Center"
+                            HorizontalAlignment="Center"
+                            Width="50"
+                            Height="50"
+                            IsIndeterminate="True"
+                            Style="{StaticResource MaterialDesignCircularProgressBar}"/>
+                        <TextBlock Grid.Row="0"
+                                   Text="Select a Question"
+                                   FontWeight="Bold"
+                                   FontSize="15"
+                                   Margin="0 0 0 10"/>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="auto"/>
+                            </Grid.ColumnDefinitions>
+                            <!--Combo Box-->
+                            <ComboBox
+                                Grid.Column="0"
+                                x:Name="cboQuestions"
+                                SelectedValuePath="Id"
+                                FontSize="15"
+                                DisplayMemberPath="Text"
+                                Background="Transparent"
+                                SelectionChanged="cboQuestions_SelectionChanged"/>
+                            <Button
                             x:Name="btnAdd"
+                                Margin="10 0 0 0"
+                            IsEnabled="False"
                                 HorizontalAlignment="Right"
                                 Grid.Column="1"
                             Click="btnAdd_Click">
-                            <StackPanel Orientation="Horizontal">
-                                <materialDesign:PackIcon
+                                <StackPanel Orientation="Horizontal">
+                                    <materialDesign:PackIcon
                                         Kind="Add"
                                         Margin="0 0 10 0"
                                         VerticalAlignment="Center"/>
-                                <TextBlock Text="Add New Activation"
+                                    <TextBlock Text="Add New Activation"
                                VerticalAlignment="Center"/>
-                            </StackPanel>
-                        </Button>
+                                </StackPanel>
+                            </Button>
+                        </Grid>
+                        <TextBlock Grid.Row="2"
+                                   Text="Manage Activations"
+                                   FontWeight="Bold" FontSize="15"
+                                   Margin="0 20 0 0"/>
+                        <!--DataGrid-->
                         <DataGrid
-                        Grid.Row="1"
+                        Grid.Row="3"
+                            Margin="0 10 0 0"
                         x:Name="dgvActivations"
                         IsReadOnly="True"
+                            SelectionChanged="dgvActivations_SelectionChanged"
                         Background="Transparent"
                         AutoGenerateColumns="False">
                             <DataGrid.Columns>
@@ -157,18 +209,13 @@
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
+                                
 
                             </DataGrid.Columns>
                         </DataGrid>
                     </Grid>
                 </materialDesign:Card>
             </Grid>
-            <!--<Grid Grid.Row="3" Margin="10" HorizontalAlignment="Center">
-            <StackPanel Orientation="Horizontal">
-                <Button Content="Edit" Margin="5" Width="75"/>
-                <Button Content="Delete" Margin="5" Width="75"/>
-            </StackPanel>
-        </Grid>-->
         </Grid>
     </materialDesign:DialogHost>
 </Window>

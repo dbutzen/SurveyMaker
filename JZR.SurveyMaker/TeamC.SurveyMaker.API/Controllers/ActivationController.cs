@@ -31,7 +31,7 @@ namespace TeamC.SurveyMaker.API.Controllers
 
 
         // POST api/<ActivationController>
-        [HttpPost("{id}")]
+        [HttpPost]
         public async Task<IActionResult> Post([FromBody] Activation activation)
         {
             try
@@ -51,6 +51,19 @@ namespace TeamC.SurveyMaker.API.Controllers
             try
             {
                 return Ok(await ActivationManager.Update(activation));
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
+            }
+        }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(Guid id)
+        {
+            try
+            {
+                return Ok(await ActivationManager.Delete(id));
             }
             catch (Exception ex)
             {

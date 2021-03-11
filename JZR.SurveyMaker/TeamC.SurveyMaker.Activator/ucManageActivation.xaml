@@ -6,13 +6,15 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:wpf="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf"
              mc:Ignorable="d" 
-        Height="250" Width="250">
+        d:Height="300" Width="300">
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid Background="#303030">
+        <Grid Background="#3F51B5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="10"/>
                 <ColumnDefinition Width="12*"/>
@@ -33,15 +35,37 @@
 
             </Grid>
             <StackPanel Grid.Row="1" Grid.Column="2">
-                <Button IsEnabled="{Binding CloseButtonIsEnabled}" Command="{x:Static wpf:DialogHost.CloseDialogCommand}" Background="Transparent" HorizontalAlignment="Right" Width="45" Height="30" BorderBrush="Transparent" ToolTip="Close">
+                <Button x:Name="btnClose"  Command="{x:Static wpf:DialogHost.CloseDialogCommand}" Background="Transparent" HorizontalAlignment="Right" Width="45" Height="30" BorderBrush="Transparent" ToolTip="Close">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Close" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                     </StackPanel>
                 </Button>
             </StackPanel>
         </Grid>
+        <ProgressBar x:Name="pbLoadingBar" Visibility="Collapsed" Grid.Row="1" IsIndeterminate="True"/>
+        <!--Message Bar-->
+        <Grid x:Name="grdMessageBar" Visibility="Visible" Grid.Row="2" Background="LightCoral">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="50"/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" x:Name="txtMessage"
+                       TextWrapping="Wrap"
+                       FontSize="11"
+                       Margin="10"
+                       Foreground="White"
+                       VerticalAlignment="Center"/>
+            <Button x:Name="btnCloseMessageBar" Grid.Column="1"
+                    ToolTip="Close"
+                    Margin="2"
+                    Background="Transparent"
+                    BorderBrush="{x:Null}"
+                    Click="btnCloseMessageBar_Click">
+                <materialDesign:PackIcon Kind="Close" Foreground="White"/>
+            </Button>
+        </Grid>
         <!--Body-->
-        <Grid Grid.Row="1" Margin="10" VerticalAlignment="Center">
+        <Grid x:Name="grdControls" Grid.Row="3" Margin="10" VerticalAlignment="Center">
             <StackPanel>
                 <StackPanel Margin="2">
                     <TextBlock
@@ -63,7 +87,7 @@
                     <DatePicker x:Name="dpEndDate"  SelectedDateChanged="date_SelectedDateChanged"/>
                 </StackPanel>
                 <StackPanel Margin="10" Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button x:Name="btnAdd">
+                    <Button x:Name="btnAdd" Click="btnAdd_Click">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon
                             Margin="0 0 10 0"
@@ -74,7 +98,7 @@
                             Text="Add"/>
                         </StackPanel>
                     </Button>
-                    <Button x:Name="btnSave" Visibility="Collapsed">
+                    <Button x:Name="btnSave" Visibility="Collapsed" Click="btnSave_Click">
                         <StackPanel Orientation="Horizontal">
                             <materialDesign:PackIcon
                             Margin="0 0 10 0"

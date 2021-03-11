@@ -42,61 +42,156 @@ namespace TeamC.SurveyMaker.Activator
 
         private async Task ReloadAsync()
         {
+
+            pbProgress.Visibility = Visibility.Visible;
+            CloseMessageBar();
+            var isConnected = false;
+            var message = string.Empty;
             await Task.Run(() =>
             {
-                HttpClient client = InitializeClient();
-                HttpResponseMessage response;
-                string result;
-                dynamic items;
-
-                response = client.GetAsync("Question").Result;
-                result = response.Content.ReadAsStringAsync().Result;
-                items = (JArray)JsonConvert.DeserializeObject(result);
-                questions = items.ToObject<List<Question>>();
+                try
+                {
+                    questions = GetData("Question").ToObject<List<Question>>();
+                    isConnected = true;
+                }
+                catch (Exception ex)
+                {
+                    message = ex.Message;
+                }
             });
+            if (!isConnected)
+                ShowMessage($"Error: {message}", Brushes.LightCoral);
             Rebind();
         }
 
         private void Rebind()
         {
-            dgvQuestions.ItemsSource = null;
-            dgvQuestions.ItemsSource = questions;
+            cboQuestions.ItemsSource = null;
+            cboQuestions.ItemsSource = questions;
+            pbProgress.Visibility = Visibility.Collapsed;
+
+            if (cboQuestions.Items.Count > 0)
+            {
+                cboQuestions.SelectedIndex = 0;
+            }
         }
 
         private HttpClient InitializeClient()
         {
             var client = new HttpClient();
-            // LOCAL API
-            //client.BaseAddress = new Uri("https://localhost:44327/api/");
-
-            // WEB API
             client.BaseAddress = new Uri("https://teamcsurveymakerapi.azurewebsites.net/api/");
             return client;
         }
 
-        private void dgvQuestions_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            selectedQuestion = (Question)dgvQuestions.SelectedItem;
-            dgvActivations.ItemsSource = null;
-            dgvActivations.ItemsSource = selectedQuestion.Activations;
-        }
 
         private async void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            var manage = new ucManageActivation();
+            CloseMessageBar();
+            var manage = new ucManageActivation(selectedQuestion.Id);
             await DialogHost.Show(manage);
+            var lastQuestionId = selectedQuestion.Id;
+            await ReloadAsync();
+            cboQuestions.SelectedValue = lastQuestionId;
         }
 
         private async void btnEdit_Click(object sender, RoutedEventArgs e)
         {
+            CloseMessageBar();
             var activation = (Activation)((Button)sender).DataContext;
-            var manage = new ucManageActivation(activation);
+            var manage = new ucManageActivation(selectedQuestion.Id, activation);
             await DialogHost.Show(manage);
+            var lastQuestionId = selectedQuestion.Id;
+            await ReloadAsync();
+            cboQuestions.SelectedValue = lastQuestionId;
+
         }
 
-        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        private async void btnDelete_Click(object sender, RoutedEventArgs e)
         {
+            try
+            {
+                CloseMessageBar();
+                var dialog = new ucDialog();
+                await DialogHost.Show(dialog);
+                if (dialog.MessageBoxResult == MessageBoxResult.Yes)
+                {
+                    var activation = (Activation)dgvActivations.SelectedItem;
+                    HttpClient client = InitializeClient();
+                    HttpResponseMessage response = client.DeleteAsync($"Activation/{activation.Id}").Result;
+                    if (response.StatusCode == System.Net.HttpStatusCode.OK)
+                    {
+                        var lastQuestionId = selectedQuestion.Id;
+                        await ReloadAsync();
+                        cboQuestions.SelectedValue = lastQuestionId;
+                        ShowMessage("Activation has been removed.", Brushes.Orange);
+                    }
+                    else
+                    {
+                        throw new Exception(response.Content.ReadAsStringAsync().Result);
+                    }
+                }
 
+            }
+            catch (Exception ex)
+            {
+                ShowMessage(ex.Message, Brushes.LightCoral);
+            }
+        }
+
+        private void cboQuestions_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CloseMessageBar();
+            if (cboQuestions.SelectedIndex > -1)
+            {
+                selectedQuestion = (Question)cboQuestions.SelectedItem;
+                btnAdd.IsEnabled = selectedQuestion != null;
+                dgvActivations.ItemsSource = null;
+                dgvActivations.ItemsSource = selectedQuestion.Activations;
+            }
+
+        }
+        private JArray GetData(string controller)
+        {
+            try
+            {
+                HttpClient client = InitializeClient();
+                HttpResponseMessage response;
+                string result;
+                response = client.GetAsync(controller).Result;
+                result = response.Content.ReadAsStringAsync().Result;
+                return (JArray)JsonConvert.DeserializeObject(result);
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        private void ShowMessage(string message, Brush backColor)
+        {
+            txtMessage.Text = message;
+            grdMessageBar.Background = backColor;
+            grdMessageBar.Visibility = Visibility.Visible;
+        }
+
+        private void CloseMessageBar()
+        {
+            grdMessageBar.Visibility = Visibility.Collapsed;
+        }
+
+        private void btnCloseMessageBar_Click(object sender, RoutedEventArgs e)
+        {
+            CloseMessageBar();
+        }
+
+        private void dgvActivations_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            CloseMessageBar();
+        }
+
+        private async void btnRefresh_Click(object sender, RoutedEventArgs e)
+        {
+            await ReloadAsync();
         }
     }
 }

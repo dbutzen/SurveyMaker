@@ -58,7 +58,7 @@ namespace TeamC.SurveyMaker.API.Controllers
         }
 
         // POST api/<QuestionController>
-        [HttpPost("{id}")]
+        [HttpPost]
         public async Task<IActionResult> Post([FromBody] Question question)
         {
             try
