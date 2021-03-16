@@ -90,7 +90,7 @@
                         </Grid.RowDefinitions>
                         <ProgressBar
                             Grid.RowSpan="4"
-                            x:Name="pbProgress"
+                            x:Name="pbLoadingCircle"
                             Visibility="Visible"
                             VerticalAlignment="Center"
                             HorizontalAlignment="Center"
@@ -182,7 +182,7 @@
                                                 SortMemberPath="StartDate"
                                                 Binding="{Binding StartDate, StringFormat=MMM-dd-yyyy}"/>
                                 <DataGridTextColumn Header="End Date"
-                                                SortMemberPath="StartDate"
+                                                SortMemberPath="EndDate"
                                                 Binding="{Binding EndDate, StringFormat=MMM-dd-yyyy}"/>
                                 <DataGridTemplateColumn Header="Status" CanUserResize="False" Width="auto">
                                     <DataGridTemplateColumn.CellTemplate>

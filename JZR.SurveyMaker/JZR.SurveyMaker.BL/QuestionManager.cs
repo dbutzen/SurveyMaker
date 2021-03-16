@@ -287,14 +287,15 @@ namespace JZR.SurveyMaker.BL
                                     question.Text = row.Question;
 
                                     question.Activations = new List<Activation>();
-                                    row.TblActivations.ToList().ForEach(a => question.Activations.Add(new Activation
-                                    {
-                                        Id = a.Id,
-                                        QuestionId = a.QuestionId,
-                                        StartDate = a.StartDate,
-                                        EndDate = a.EndDate,
-                                        ActivationCode = a.ActivationCode
-                                    }));
+                                    var activationRow = row.TblActivations.FirstOrDefault(a => a.QuestionId == question.Id && a.ActivationCode == activationCode);
+                                    question.Activations.Add(new Activation
+                                    { 
+                                        Id = activationRow.Id,
+                                        QuestionId = activationRow.QuestionId,
+                                        StartDate = activationRow.StartDate,
+                                        EndDate = activationRow.EndDate,
+                                        ActivationCode = activationRow.ActivationCode
+                                    });
 
                                     question.Answers = new List<Answer>();
                                     row.TblQuestionAnswers.ToList().ForEach(qa => question.Answers.Add(new Answer

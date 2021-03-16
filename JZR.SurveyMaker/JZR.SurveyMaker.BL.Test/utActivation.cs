@@ -46,7 +46,7 @@ namespace JZR.SurveyMaker.BL.Test
             var activations = task.Result;
 
             Activation activation = activations.FirstOrDefault(a => a.ActivationCode == "1q2w3e");
-            var results = ActivationManager.Delete(activation, true);
+            var results = ActivationManager.Delete(activation.Id, true);
             
             results.Wait();
             Assert.IsTrue(results.Result > 0);

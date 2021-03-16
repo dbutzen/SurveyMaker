@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -43,7 +44,7 @@ namespace TeamC.SurveyMaker.Activator
         private async Task ReloadAsync()
         {
 
-            pbProgress.Visibility = Visibility.Visible;
+            DisableControls();
             CloseMessageBar();
             var isConnected = false;
             var message = string.Empty;
@@ -68,7 +69,7 @@ namespace TeamC.SurveyMaker.Activator
         {
             cboQuestions.ItemsSource = null;
             cboQuestions.ItemsSource = questions;
-            pbProgress.Visibility = Visibility.Collapsed;
+            EnabledContols();
 
             if (cboQuestions.Items.Count > 0)
             {
@@ -146,7 +147,7 @@ namespace TeamC.SurveyMaker.Activator
                 selectedQuestion = (Question)cboQuestions.SelectedItem;
                 btnAdd.IsEnabled = selectedQuestion != null;
                 dgvActivations.ItemsSource = null;
-                dgvActivations.ItemsSource = selectedQuestion.Activations;
+                dgvActivations.ItemsSource = selectedQuestion.Activations.OrderBy(a => a.StartDate);
             }
 
         }
@@ -192,6 +193,20 @@ namespace TeamC.SurveyMaker.Activator
         private async void btnRefresh_Click(object sender, RoutedEventArgs e)
         {
             await ReloadAsync();
+        }
+
+
+        private void DisableControls()
+        {
+            CloseMessageBar();
+            pbLoadingCircle.Visibility = Visibility.Visible;
+            grdMainGrid.IsEnabled = false;
+        }
+
+        private void EnabledContols()
+        {
+            pbLoadingCircle.Visibility = Visibility.Collapsed;
+            grdMainGrid.IsEnabled = true;
         }
     }
 }

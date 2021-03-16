@@ -25,6 +25,7 @@ namespace TeamC.SurveyMaker.Activator
     /// </summary>
     public partial class ucManageActivation : UserControl
     {
+
         Activation activation;
         Guid questionId;
         public ucManageActivation(Guid questionId, Activation activation = null)
@@ -107,10 +108,10 @@ namespace TeamC.SurveyMaker.Activator
             {
                 // Check if activation code is available
                 var results = new List<Activation>();
-                await Task.Run(() => GetData("Activation").ToObject<List<Activation>>());
+                results = await Task.Run(() => GetData("Activation").ToObject<List<Activation>>());
                 var result = results.FirstOrDefault(r => r.ActivationCode == txtActivationCode.Text);
                 // Activation must be null or the activation code must belong to the activation that is being updated
-                if (result == null || result.QuestionId == questionId)
+                if (result == null || activation.ActivationCode == txtActivationCode.Text)
                 {
                     if (txtActivationCode.Text.Length == 6)
                     {
