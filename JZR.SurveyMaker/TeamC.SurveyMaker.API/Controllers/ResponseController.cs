@@ -18,11 +18,11 @@ namespace TeamC.SurveyMaker.API.Controllers
 
         // POST api/<QuestionController>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Response response)
+        public async Task<IActionResult> Post([FromBody] Response response, bool rollback = false)
         {
             try
             {
-                return Ok(await ResponseManager.Insert(response));
+                return Ok(await ResponseManager.Insert(response, rollback));
             }
             catch (Exception ex)
             {

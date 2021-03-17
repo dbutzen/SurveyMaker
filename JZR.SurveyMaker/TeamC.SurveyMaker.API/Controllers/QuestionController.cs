@@ -59,11 +59,11 @@ namespace TeamC.SurveyMaker.API.Controllers
 
         // POST api/<QuestionController>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Question question)
+        public async Task<IActionResult> Post([FromBody] Question question, bool rollback = false)
         {
             try
             {
-                return Ok(await QuestionManager.Insert(question));
+                return Ok(await QuestionManager.Insert(question, rollback));
             }
             catch (Exception ex)
             {
@@ -73,11 +73,11 @@ namespace TeamC.SurveyMaker.API.Controllers
 
         // PUT api/<QuestionController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(Guid id, [FromBody] Question question)
+        public async Task<IActionResult> Put(Guid id, [FromBody] Question question, bool rollback = false)
         {
             try
             {
-                return Ok(await QuestionManager.Update(question));
+                return Ok(await QuestionManager.Update(question, rollback));
             }
             catch (Exception ex)
             {

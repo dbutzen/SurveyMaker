@@ -34,7 +34,7 @@ namespace JZR.VehicleTracker.PL.Test
         [TestMethod]
         public void LoadTest()
         {
-            Assert.AreEqual(3, dc.tblResponses.Count());
+            Assert.AreEqual(6, dc.tblResponses.Count());
         }
 
         [TestMethod]

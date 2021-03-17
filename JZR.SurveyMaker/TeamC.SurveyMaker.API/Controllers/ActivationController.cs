@@ -32,11 +32,11 @@ namespace TeamC.SurveyMaker.API.Controllers
 
         // POST api/<ActivationController>
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody] Activation activation)
+        public async Task<IActionResult> Post([FromBody] Activation activation, bool rollback = false)
         {
             try
             {
-                return Ok(await ActivationManager.Insert(activation));
+                return Ok(await ActivationManager.Insert(activation, rollback));
             }
             catch (Exception ex)
             {
@@ -46,11 +46,11 @@ namespace TeamC.SurveyMaker.API.Controllers
 
         // PUT api/<ActivationController>/5
         [HttpPut("{id}")]
-        public async Task<IActionResult> Put(Guid id, [FromBody] Activation activation)
+        public async Task<IActionResult> Put(Guid id, [FromBody] Activation activation, bool rollback = false)
         {
             try
             {
-                return Ok(await ActivationManager.Update(activation));
+                return Ok(await ActivationManager.Update(activation, rollback));
             }
             catch (Exception ex)
             {
@@ -59,11 +59,11 @@ namespace TeamC.SurveyMaker.API.Controllers
         }
 
         [HttpDelete("{id}")]
-        public async Task<IActionResult> Delete(Guid id)
+        public async Task<IActionResult> Delete(Guid id, bool rollback = false)
         {
             try
             {
-                return Ok(await ActivationManager.Delete(id));
+                return Ok(await ActivationManager.Delete(id, rollback));
             }
             catch (Exception ex)
             {

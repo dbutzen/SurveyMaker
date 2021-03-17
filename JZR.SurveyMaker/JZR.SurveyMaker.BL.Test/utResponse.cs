@@ -29,7 +29,7 @@ namespace JZR.SurveyMaker.BL.Test
             var rtask = ResponseManager.LoadByQuestionId(question.Id);
             rtask.Wait();
             var responses = (List<Response>)rtask.Result;
-            Assert.AreEqual(1, responses.ToList().Count);
+            Assert.AreEqual(2, responses.ToList().Count);
              
         }
 

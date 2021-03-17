@@ -4,6 +4,6 @@
     [QuestionId] UNIQUEIDENTIFIER NOT NULL, 
     [AnswerId] UNIQUEIDENTIFIER NOT NULL, 
     [ResponseDate] DATETIME NOT NULL, 
-    CONSTRAINT [tblResponse_QuestionId] FOREIGN KEY (QuestionId) REFERENCES tblQuestion(Id), 
-    CONSTRAINT [tblResponse_AnswerId] FOREIGN KEY (AnswerId) REFERENCES tblAnswer(Id)
+    CONSTRAINT [tblResponse_QuestionId] FOREIGN KEY (QuestionId) REFERENCES tblQuestion(Id) ON DELETE CASCADE, 
+    CONSTRAINT [tblResponse_AnswerId] FOREIGN KEY (AnswerId) REFERENCES tblAnswer(Id) ON DELETE CASCADE
 )
