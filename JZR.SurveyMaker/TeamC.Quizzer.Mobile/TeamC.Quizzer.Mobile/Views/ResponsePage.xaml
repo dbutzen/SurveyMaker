@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TeamC.Quizzer.Mobile.Views.ResponsePage">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <!--Message Bar-->
+            <Grid x:Name="grdMessageBar" IsVisible="False" Grid.Row="0" BackgroundColor="LightCoral">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0"
+                       Margin="5"
+                       FontSize="12"
+                       VerticalOptions="Center"
+                       TextColor="White"
+                       x:Name="txtMessage"
+                       Text="Test Message"/>
+                <Button Grid.Column="1"
+                        x:Name="btnClose"
+                        Text="Close"
+                        Clicked="btnClose_Clicked"/>
+            </Grid>
+            <StackLayout x:Name="slQuestion" Grid.Row="1">
+                <Label x:Name="txtQuestion"
+                       FontAttributes="Bold"
+                       FontSize="15"
+                       Margin="10"/>
+                <CollectionView x:Name="cvAnswers" Margin="20,0,0,0">
+                    <CollectionView.ItemTemplate>
+                        <DataTemplate>
+                            <StackLayout Orientation="Horizontal" Margin="5">
+                                <RadioButton IsChecked="{Binding IsSelected, Mode=TwoWay}"
+                                                 CheckedChanged="RadioButton_CheckedChanged"
+                                                 VerticalOptions="Center"
+                                                 GroupName="Answers"
+                                                 />
+                                <Label
+                                        VerticalOptions="Center"
+                                        Margin="0,0,10,0"
+                                        Text="{Binding Path=DisplayLetter}"/>
+                                <Label
+                                        VerticalOptions="Center"
+                                        Text="{Binding Path=Answer.Text}"/>
+                            </StackLayout>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+                <Button x:Name="btnSubmit" Margin="20" Text="Submit" Clicked="btnSubmit_Clicked"/>
+            </StackLayout>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

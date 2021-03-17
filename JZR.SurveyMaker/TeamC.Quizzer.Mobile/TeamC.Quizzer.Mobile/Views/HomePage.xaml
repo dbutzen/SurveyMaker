@@ -1,0 +1,46 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="TeamC.Quizzer.Mobile.Views.HomePage">
+    <ContentPage.Content>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <!--Message Bar-->
+            <Grid x:Name="grdMessageBar" IsVisible="False" Grid.Row="0" BackgroundColor="LightCoral">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="auto"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0"
+                       Margin="5"
+                       FontSize="12"
+                       VerticalOptions="Center"
+                       TextColor="White"
+                       x:Name="txtMessage"
+                       Text="Test Message"/>
+                <Button Grid.Column="1"
+                        x:Name="btnClose"
+                        Text="Close"
+                        Clicked="btnClose_Clicked"/>
+            </Grid>
+            <!--Content-->
+            <Grid Grid.Row="1">
+                <StackLayout
+                    VerticalOptions="Center"
+                    HorizontalOptions="Center">
+                    <Label Text="Enter your activation code:"/>
+                    <Entry x:Name="txtActivationCode"
+                           HorizontalTextAlignment="Center"
+                           TextChanged="txtActivationCode_TextChanged"/>
+                    <Button x:Name="btnSubmit"
+                            Text="Submit"
+                            IsEnabled="False"
+                            Clicked="btnSubmit_Clicked"/>
+                </StackLayout>
+            </Grid>
+        </Grid>
+    </ContentPage.Content>
+</ContentPage>

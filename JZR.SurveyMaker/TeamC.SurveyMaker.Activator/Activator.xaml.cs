@@ -69,7 +69,7 @@ namespace TeamC.SurveyMaker.Activator
         {
             cboQuestions.ItemsSource = null;
             cboQuestions.ItemsSource = questions;
-            EnabledContols();
+            EnableControls();
 
             if (cboQuestions.Items.Count > 0)
             {
@@ -203,7 +203,7 @@ namespace TeamC.SurveyMaker.Activator
             grdMainGrid.IsEnabled = false;
         }
 
-        private void EnabledContols()
+        private void EnableControls()
         {
             pbLoadingCircle.Visibility = Visibility.Collapsed;
             grdMainGrid.IsEnabled = true;

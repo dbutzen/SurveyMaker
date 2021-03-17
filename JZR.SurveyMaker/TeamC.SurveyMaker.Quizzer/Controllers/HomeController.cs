@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using TeamC.SurveyMaker.Quizzer.Models;
 
@@ -11,6 +12,13 @@ namespace TeamC.SurveyMaker.Quizzer.Controllers
 {
     public class HomeController : Controller
     {
+        private static HttpClient InitializeClient()
+        {
+            HttpClient client = new HttpClient();
+            client.BaseAddress = new Uri("https://teamcsurveymakerapi.azurewebsites.net/api/");
+            return client;
+        }
+
         private readonly ILogger<HomeController> _logger;
 
         public HomeController(ILogger<HomeController> logger)

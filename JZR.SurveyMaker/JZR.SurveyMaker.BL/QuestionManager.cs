@@ -300,7 +300,7 @@ namespace JZR.SurveyMaker.BL
                                     question.Answers = new List<Answer>();
                                     row.TblQuestionAnswers.ToList().ForEach(qa => question.Answers.Add(new Answer
                                     {
-                                        Id = qa.Id,
+                                        Id = qa.Answer.Id,
                                         Text = qa.Answer.Answer,
                                         IsCorrect = qa.IsCorrect
                                     }));

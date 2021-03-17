@@ -178,7 +178,7 @@ namespace TeamC.SurveyMaker.Activator
 
                 ShowMessage($"Error: {ex.Message}", Brushes.LightCoral);
             }
-            EnabledContols();
+            EnableControls();
         }
 
 
@@ -212,7 +212,7 @@ namespace TeamC.SurveyMaker.Activator
 
                 ShowMessage($"Error: {ex.Message}", Brushes.LightCoral);
             }
-            EnabledContols();
+            EnableControls();
         }
 
         private JArray GetData(string controller)
@@ -274,7 +274,7 @@ namespace TeamC.SurveyMaker.Activator
             grdControls.IsEnabled = false;
         }
 
-        private void EnabledContols()
+        private void EnableControls()
         {
             pbLoadingBar.Visibility = Visibility.Collapsed;
             btnClose.IsEnabled = true;
