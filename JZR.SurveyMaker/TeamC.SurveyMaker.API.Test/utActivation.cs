@@ -19,7 +19,6 @@ namespace TeamC.SurveyMaker.API.Test
             return client;
         }
 
-
         [TestMethod]
         public void PostTest()
         {
@@ -46,8 +45,9 @@ namespace TeamC.SurveyMaker.API.Test
         [TestMethod]
         public void GetTest()
         {
+            var activations = GetData("Activation").ToObject<List<Activation>>().ToList().Count;
 
-            Assert.AreEqual(3, GetData("Activation").Count);
+            Assert.AreEqual(3, activations);
         }
 
 
@@ -78,7 +78,6 @@ namespace TeamC.SurveyMaker.API.Test
             var results = int.Parse(response.Content.ReadAsStringAsync().Result);
             Assert.IsTrue(results > 0);
         }
-
 
 
         private JArray GetData(string controller)
