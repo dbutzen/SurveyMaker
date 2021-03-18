@@ -1,0 +1,74 @@
+﻿@model JZR.SurveyMaker.BL.Models.Question
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+<h1>Question</h1>
+@using (Html.BeginForm("Submit", "Quizzer"))
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => model.Text)
+                </td>
+            </tr>
+            <tr>
+                <td>
+
+                </td>
+            </tr>
+        </thead>
+
+        @foreach (var item in Model.Answers)
+        {
+
+
+            <tbody>
+                <tr>
+                    <td>
+                        @Html.RadioButton("selectedButton", item.Id) @item.Text
+                    </td>
+                </tr>
+            </tbody>
+        }
+    </table>
+<input type="submit" id="submit" value="Submit Answer" />
+}
+
+
+
+
+<!--<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Text)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Answers) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Text)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>-->

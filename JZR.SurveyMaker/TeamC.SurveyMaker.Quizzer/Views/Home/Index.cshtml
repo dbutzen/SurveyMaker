@@ -6,7 +6,11 @@
     <h1 class="display-4">Quizzer</h1>
     <p>Enter activation code</p>
 
-    <input type="text" id="txtActivationCode" name="txtActivationCode" />
-    <input type="button" value="Submit" id="btnSubmit" name="btnSubmit" />
+    @using (Html.BeginForm("Index", "Quizzer"))
+    {
+        <input type="text" id="txtActivationCode" name="txtActivationCode" />
+        <input type="submit" value="Submit Code">
+    }
 
+    <!--Html.ActionLink("Submit Code", "Index", "Quizzer", null, new { onclick = "this.Href += '&Quizzer=' + document.getElementById('txtActivationCode').value;" })-->
 </div>
