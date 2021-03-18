@@ -61,6 +61,10 @@ namespace TeamC.SurveyMaker.Quizzer.Controllers
 
         public ActionResult Submit()
         {
+            try
+            {
+
+            
             string strAnswerId = Request.Form["selectedButton"];
 
             Response response = new Response();
@@ -77,6 +81,12 @@ namespace TeamC.SurveyMaker.Quizzer.Controllers
             var postResponse = client.PostAsync("Response?rollback=true", content).Result;
 
             return View();
+            }
+            catch (Exception)
+            {
+
+                throw new Exception("Something went wrong, was an answer selected?");
+            }
         }
 
         // GET: QuizzerController/Details/5
