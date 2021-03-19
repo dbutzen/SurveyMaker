@@ -71,7 +71,7 @@
                     <TextBlock
                         Text="Activation Code"
                         FontSize="10"/>
-                    <TextBox x:Name="txtActivationCode" MaxLength="6"/>
+                    <TextBox x:Name="txtActivationCode" TextChanged="txtActivationCode_TextChanged" MaxLength="6"/>
                 </StackPanel>
                 <StackPanel Margin="2">
                     <TextBlock

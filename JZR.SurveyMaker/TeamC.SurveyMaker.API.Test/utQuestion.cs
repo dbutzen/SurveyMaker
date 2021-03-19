@@ -51,7 +51,7 @@ namespace TeamC.SurveyMaker.API.Test
         {
             var questions = GetData("Question").ToObject<List<Question>>().ToList().Count;
 
-            Assert.AreEqual(6, questions);
+            Assert.AreEqual(5, questions);
         }
 
         [TestMethod]
